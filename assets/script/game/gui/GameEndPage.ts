@@ -33,7 +33,7 @@ export class GameEndPage extends Component {
         }
         else if (GameManager.instance.GameState == GameStateCode.GameOver) {
             this._text_state.text = "游戏失败！";
-            this._text_notice_time.text = `你坚持了：${elapsed.toFixed(2)} 秒，请再接再厉`;
+            this._text_notice_time.text = `你坚持了：${elapsed.toFixed(2)} 秒，请再接再厉！`;
         }
     }
 

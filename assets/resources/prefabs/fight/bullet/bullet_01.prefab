@@ -275,24 +275,24 @@
     "__prefab": {
       "__id__": 13
     },
-    "life": 10,
+    "life": 6,
     "startColor": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
+      "r": 214,
+      "g": 239,
       "b": 255,
       "a": 255
     },
     "midColor": {
       "__type__": "cc.Color",
-      "r": 236,
-      "g": 180,
-      "b": 61,
+      "r": 0,
+      "g": 204,
+      "b": 0,
       "a": 255
     },
     "endColor": {
       "__type__": "cc.Color",
-      "r": 121,
+      "r": 107,
       "g": 0,
       "b": 0,
       "a": 255
@@ -347,6 +347,7 @@
       "__id__": 0
     },
     "fileId": "2dO2e060dMwphwTvAb9jdQ",
-    "instance": null
+    "instance": null,
+    "targetOverrides": null
   }
 ]
