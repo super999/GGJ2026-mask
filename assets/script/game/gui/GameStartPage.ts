@@ -25,8 +25,8 @@ export class GameStartPage extends Component {
         this._button_quit.visible = false; // 禁用退出按钮
     }
     onClickStart() {
-        log(`点击开始游戏按钮，发送 START_GAME 事件`);
-        EventManager.instance.emit(GameEvents.START_GAME);
+        log(`点击开始游戏按钮，发送 ENTER_STAGE 事件`);
+        EventManager.instance.emit(GameEvents.ENTER_STAGE);
     }
 
     onClickQuit() {

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1280,720">
   <displayList>
-    <text id="n1_vg7n" name="text_state" xy="318,81" size="644,148" font="ui://z5tfkaorvg7n8" fontSize="55" color="#cccc33" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="5" shadowColor="#000000" shadowOffset="1,1" text="Masklight 黑雾微光"/>
+    <text id="n1_vg7n" name="text_state" xy="318,-194" size="644,148" font="ui://z5tfkaorvg7n8" fontSize="55" color="#cccc33" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="5" shadowColor="#000000" shadowOffset="1,1" text="Masklight 黑雾微光"/>
     <component id="n6_vg7n" name="button_start" src="vg7ns" fileName="components/Button01.xml" xy="484,566">
       <Button title="开始游戏"/>
     </component>
     <component id="n8_vg7n" name="button_quit" src="vg7nu" fileName="components/Button03.xml" xy="484,733">
       <Button title="退出游戏"/>
     </component>
+    <image id="n10_vg7n" name="n10" src="vg7nx" fileName="images/ui/MaskLight.png" xy="337,121" size="270,77"/>
+    <image id="n11_vg7n" name="n11" src="vg7ny" fileName="images/ui/黑雾微光.png" xy="639,112"/>
   </displayList>
 </component>

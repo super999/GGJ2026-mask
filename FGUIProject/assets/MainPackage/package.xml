@@ -23,6 +23,8 @@
     <component id="vg7nu" name="Button03.xml" path="/components/"/>
     <image id="vg7nv" name="启动页面背景.jpg" path="/images/bg/"/>
     <image id="vg7nw" name="启动页面背景2.jpg" path="/images/bg/"/>
+    <image id="vg7nx" name="MaskLight.png" path="/images/ui/"/>
+    <image id="vg7ny" name="黑雾微光.png" path="/images/ui/"/>
   </resources>
   <publish name=""/>
 </packageDescription>

@@ -12,17 +12,11 @@ export class BattleMain extends Component {
 
     }
 
-    async onLoad(): Promise<void> {
-        
+    async onLoad(): Promise<void> {        
         // GameManager 注册 setTextTime 方法
         this.onUILoaded();
         GameManager.instance.setTextTime = this.setTextTime.bind(this);
     }
-
-    update(deltaTime: number) {
-        
-    }
-
 
     onUILoaded() {
         this._view = fgui.UIPackage.createObject("MainPackage", "Game_PlayPage").asCom;
@@ -58,6 +52,10 @@ export class BattleMain extends Component {
             this._txtTime.text = `${mm}:${ss}`;
         }
     }
+    
+    update(deltaTime: number) {        
+    }
+
 }
 
 

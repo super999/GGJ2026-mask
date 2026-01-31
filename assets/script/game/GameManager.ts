@@ -8,6 +8,7 @@ import UIManager from './core/UIManager';
 import { GameStartPage } from './gui/GameStartPage';
 import { SceneManager } from './SceneManager';
 import { game } from 'cc';
+import { GameStagePage } from './gui/GameStagePage';
 
 const { ccclass, property } = _decorator;
 
@@ -65,6 +66,8 @@ export class GameManager extends Component {
         EventManager.instance.on(GameEvents.START_GAME, this._onStart);
         this._onQuit = this._onQuitCallback.bind(this);
         EventManager.instance.on(GameEvents.QUIT_GAME, this._onQuit);
+        this._onStageEnter = this._onStageEnterCallback.bind(this);
+        EventManager.instance.on(GameEvents.ENTER_STAGE, this._onStageEnter);
     }
 
     onDisable() {
@@ -84,6 +87,10 @@ export class GameManager extends Component {
         if (this._onQuit) {
             EventManager.instance.off(GameEvents.QUIT_GAME, this._onQuit);
             this._onQuit = null;
+        }
+        if (this._onStageEnter) {
+            EventManager.instance.off(GameEvents.ENTER_STAGE, this._onStageEnter);
+            this._onStageEnter = null;
         }
     }
 
@@ -165,6 +172,7 @@ export class GameManager extends Component {
     private _WorldRoot: Node | null = null;
     private _onStart: ((...args: any[]) => void) | null = null;
     private _onQuit: ((...args: any[]) => void) | null = null;
+    private _onStageEnter: ((...args: any[]) => void) | null = null;
 
 
     onFGUIReady() {
@@ -232,7 +240,7 @@ export class GameManager extends Component {
             this.playerMove.enabled = false;
 
         // 切换 UI 到 BattleMain，并启动游戏
-        UIManager.instance.replace(GameStartPage, BattleMain);
+        UIManager.instance.replace(GameStagePage, BattleMain);
         this.startGame();
     }
 
@@ -258,6 +266,10 @@ export class GameManager extends Component {
         // MVP：直接销毁 BulletLayer 下所有子弹
         for (const c of this.bulletLayer.children.slice())
             c.destroy();
+    }
+
+    _onStageEnterCallback() {
+         UIManager.instance.replace(GameStartPage, GameStagePage);
     }
 
 }
