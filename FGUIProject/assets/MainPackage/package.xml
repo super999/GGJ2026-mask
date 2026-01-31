@@ -10,6 +10,18 @@
     <component id="vg7n7" name="button_restart.xml" path="/components/"/>
     <font id="vg7n8" name="SourceHanSansCN-Heavy.ttf" path="/font/" renderMode="" samplePointSize="16"/>
     <component id="vg7n9" name="Page_GameOver.xml" path="/page/" exported="true"/>
+    <component id="vg7nb" name="Page_MainStart.xml" path="/page/" exported="true"/>
+    <image id="vg7nl" name="橙色按钮.png" path="/images/ui/" scale="9grid" scale9grid="52,31,121,50"/>
+    <image id="vg7nm" name="爱心1.png" path="/images/ui/"/>
+    <image id="vg7nn" name="爱心2.png" path="/images/ui/"/>
+    <image id="vg7no" name="爱心3.png" path="/images/ui/"/>
+    <image id="vg7np" name="红色按钮.png" path="/images/ui/" scale="9grid" scale9grid="53,28,139,56"/>
+    <image id="vg7nq" name="绿色按钮.png" path="/images/ui/" scale="9grid" scale9grid="51,27,68,54"/>
+    <image id="vg7nr" name="蓝色按钮.png" path="/images/ui/"/>
+    <component id="vg7ns" name="Button01.xml" path="/components/"/>
+    <component id="vg7nt" name="Button02.xml" path="/components/"/>
+    <component id="vg7nu" name="Button03.xml" path="/components/"/>
+    <image id="vg7nv" name="启动页面背景.jpg" path="/images/bg/"/>
   </resources>
   <publish name=""/>
 </packageDescription>
