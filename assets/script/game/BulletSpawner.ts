@@ -1,4 +1,4 @@
-import { _decorator, Component, Prefab, Node, Camera, instantiate, Vec3, view, math, log, director, resources } from 'cc';
+import { _decorator, Component, Prefab, Node, Camera, instantiate, Vec3, view, math, log, director, resources, JsonAsset } from 'cc';
 import { Bullet } from './Bullet';
 import { SceneManager } from './SceneManager';
 import AudioManager from './core/AudioManager';
@@ -30,11 +30,14 @@ export class BulletSpawner extends Component {
   private _acc = 0;
   private bulletPrefabPath = 'prefabs/fight/bullet/bullet_01';
   private _bulletPrefab: Prefab | null = null;
+  private _prefabCache: Map<string, Prefab> = new Map();
   
   getOrLoadPrefab(path: string): Promise<Prefab> {
     return new Promise<Prefab>((resolve, reject) => {
-      if (this._bulletPrefab) {
-        resolve(this._bulletPrefab);
+      const cached = this._prefabCache.get(path);
+      if (cached) {
+        this._bulletPrefab = cached;
+        resolve(cached);
         return;
       }
       try {
@@ -43,8 +46,10 @@ export class BulletSpawner extends Component {
             reject(err);
             return;
           }
-          this._bulletPrefab = asset as Prefab;
-          resolve(this._bulletPrefab);
+          const prefab = asset as Prefab;
+          this._prefabCache.set(path, prefab);
+          this._bulletPrefab = prefab;
+          resolve(prefab);
         });
       } catch (e) {
         reject(e);
@@ -54,9 +59,31 @@ export class BulletSpawner extends Component {
 
   async onLoad() {
         this.gameCamera = SceneManager.instance.getGameCamera();
-        log('BulletSpawner loaded, camera=', this.gameCamera);
-        // Load the bullet prefab asynchronously
-        this._bulletPrefab = await this.getOrLoadPrefab(this.bulletPrefabPath);        
+            log('BulletSpawner loaded, camera=', this.gameCamera);
+            // Load stages config and pick a random bullet prefab path
+            try {
+              const stagesAsset = await new Promise<JsonAsset>((resolve, reject) => {
+                resources.load('config/stages', JsonAsset, (err, asset) => {
+                  if (err) { reject(err); return; }
+                  resolve(asset as JsonAsset);
+                });
+              });
+              const stages = stagesAsset.json as Array<any>;
+              if (stages && stages.length > 0) {
+                const idx = math.randomRangeInt(0, stages.length);
+                const chosen = stages[idx];
+                if (chosen && chosen.bullet) {
+                  this.bulletPrefabPath = chosen.bullet;
+                  // if (chosen.interval) 
+                  //   this.interval = chosen.interval;
+                  log('BulletSpawner: chosen bullet path=', this.bulletPrefabPath, 'interval=', this.interval);
+                }
+              }
+            } catch (e) {
+              log('BulletSpawner: failed to load stages config, using default bullet path', e);
+            }
+            // Load the bullet prefab asynchronously (from chosen path)
+            this._bulletPrefab = await this.getOrLoadPrefab(this.bulletPrefabPath);
     }
 
 
