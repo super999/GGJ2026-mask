@@ -22,6 +22,7 @@ export class GameStartPage extends Component {
         this._button_start.onClick(this.onClickStart, this);
         this._button_quit = this._view.getChild("button_quit") as fgui.GButton;
         this._button_quit.onClick(this.onClickQuit, this);
+        this._button_quit.visible = false; // 禁用退出按钮
     }
     onClickStart() {
         log(`点击开始游戏按钮，发送 START_GAME 事件`);

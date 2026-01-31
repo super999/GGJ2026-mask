@@ -854,7 +854,7 @@
     "enableBreath": true,
     "breathAmp": 0.04,
     "breathHz": 0.5,
-    "enableDifficulty": false,
+    "enableDifficulty": true,
     "difficultyDuration": 30,
     "minRadius": 0.12,
     "maxFogAlpha": 0.99,

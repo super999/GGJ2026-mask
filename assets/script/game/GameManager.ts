@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, director, KeyCode, input, Input, EventKeyboard, Prefab, instantiate, Camera } from 'cc';
+import { _decorator, Component, Node, director, KeyCode, input, Input, EventKeyboard, Prefab, instantiate, Camera, error } from 'cc';
 import { BulletSpawner } from './BulletSpawner';
 import { PlayerMove } from './PlayerMove';
 import { BattleMain } from './gui/BattleMain';
@@ -7,6 +7,7 @@ import EventManager, { GameEvents } from './core/EventManager';
 import UIManager from './core/UIManager';
 import { GameStartPage } from './gui/GameStartPage';
 import { SceneManager } from './SceneManager';
+import { game } from 'cc';
 
 const { ccclass, property } = _decorator;
 
@@ -15,7 +16,7 @@ export enum GameStateCode {
     Playing,
     GameOver,
     Win
-} 
+}
 
 @ccclass('GameManager')
 export class GameManager extends Component {
@@ -33,7 +34,7 @@ export class GameManager extends Component {
     winTime = 30;
 
     private state: GameStateCode = GameStateCode.Ready;
-    private elapsed = 0;
+    public  elapsed = 0;
 
     static instance: GameManager = null!;
 
@@ -62,6 +63,8 @@ export class GameManager extends Component {
         EventManager.instance.on(GameEvents.RESTART, this._onRestart);
         this._onStart = this._onStartCallback.bind(this);
         EventManager.instance.on(GameEvents.START_GAME, this._onStart);
+        this._onQuit = this._onQuitCallback.bind(this);
+        EventManager.instance.on(GameEvents.QUIT_GAME, this._onQuit);
     }
 
     onDisable() {
@@ -78,6 +81,10 @@ export class GameManager extends Component {
             EventManager.instance.off(GameEvents.START_GAME, this._onStart);
             this._onStart = null;
         }
+        if (this._onQuit) {
+            EventManager.instance.off(GameEvents.QUIT_GAME, this._onQuit);
+            this._onQuit = null;
+        }
     }
 
     startGame() {
@@ -85,7 +92,6 @@ export class GameManager extends Component {
         this.elapsed = 0;
         this.spawner.enabled = true;
         this.playerMove.enabled = true;
-
         this.setTextTime?.(0);
     }
 
@@ -158,6 +164,7 @@ export class GameManager extends Component {
     private _fightLayerInstance: Node | null = null;
     private _WorldRoot: Node | null = null;
     private _onStart: ((...args: any[]) => void) | null = null;
+    private _onQuit: ((...args: any[]) => void) | null = null;
 
 
     onFGUIReady() {
@@ -183,43 +190,55 @@ export class GameManager extends Component {
             console.warn('GameManager: fightLayerPrefab is not assigned');
             return;
         }
+        const parent = SceneManager.instance?.WorldCanvas;
+        if (!parent) {
+            error('GameManager: cannot find WorldCanvas from SceneManager');
+            return;
+        }
+        const StartPage = parent.getChildByName('Start') as Node;
+        if (StartPage)
+            StartPage.destroy();
 
         // 实例化战斗预制体并挂到场景
         const inst = instantiate(this.fightLayerPrefab);
-        const parent = SceneManager.instance?.WorldCanvas;
-        if (parent) 
-            parent.addChild(inst);
+        parent.addChild(inst);
+
         this._fightLayerInstance = inst;
         this._WorldRoot = inst.getChildByName('WorldRoot');
 
         // 绑定 player, bulletLayer, spawner, playerMove（尽可能通过常见名字或组件查找）
         const playerNode = this._WorldRoot.getChildByName('Player');
-        if (playerNode) 
+        if (playerNode)
             this.player = playerNode;
 
         const bulletLayerNode = this._WorldRoot.getChildByName('BulletLayer');
-        if (bulletLayerNode) 
+        if (bulletLayerNode)
             this.bulletLayer = bulletLayerNode;
 
         // 查找 BulletSpawner 组件
-        const spawnerComp = this._WorldRoot.getComponentInChildren(BulletSpawner) as BulletSpawner | null;
-        if (spawnerComp) 
+        const spawnerComp: BulletSpawner = this._WorldRoot.getComponentInChildren(BulletSpawner);
+        if (spawnerComp)
             this.spawner = spawnerComp;
 
         // 查找 PlayerMove 组件
-        const playerMoveComp = playerNode.getComponent(PlayerMove) as PlayerMove;
-        if (playerMoveComp) 
+        const playerMoveComp: PlayerMove = playerNode.getComponent(PlayerMove);
+        if (playerMoveComp)
             this.playerMove = playerMoveComp;
 
         // 确保初始为禁用，随后 startGame 会启用
-        if (this.spawner) 
+        if (this.spawner)
             this.spawner.enabled = false;
-        if (this.playerMove) 
+        if (this.playerMove)
             this.playerMove.enabled = false;
 
         // 切换 UI 到 BattleMain，并启动游戏
         UIManager.instance.replace(GameStartPage, BattleMain);
         this.startGame();
+    }
+
+    private _onQuitCallback() {
+        game.end();
+        console.log('QUIT_GAME requested, but environment does not allow programmatic exit.');
     }
 
     gameOverInternal() {

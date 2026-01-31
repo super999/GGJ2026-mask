@@ -74,7 +74,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Sprite",
+    "_name": "spine",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
@@ -95,8 +95,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
+      "x": 5.181,
+      "y": -54.875,
       "z": 0
     },
     "_lrot": {
@@ -136,22 +136,22 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 566,
-      "height": 1185
+      "width": 959,
+      "height": 700.2000122070312
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
+      "x": 0.5041710114702815,
+      "y": 0.004998571749474833
     },
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "71bAx3UG5OWoWjgmqLwwux"
+    "fileId": "6cIC2INqVHCbCYuIKQe2gj"
   },
   {
-    "__type__": "cc.Sprite",
+    "__type__": "sp.Skeleton",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -172,28 +172,28 @@
       "b": 255,
       "a": 255
     },
-    "_spriteFrame": {
-      "__uuid__": "419923a5-f584-4e49-8e3b-dec178f9af7d@f9941",
-      "__expectedType__": "cc.SpriteFrame"
+    "_skeletonData": {
+      "__uuid__": "5f8ec27e-bd60-409d-99d5-f40091c7725e",
+      "__expectedType__": "sp.SkeletonData"
     },
-    "_type": 0,
-    "_fillType": 0,
-    "_sizeMode": 1,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_useGrayscale": false,
-    "_atlas": null,
+    "defaultSkin": "default",
+    "defaultAnimation": "idle",
+    "_premultipliedAlpha": true,
+    "_timeScale": 1,
+    "_preCacheMode": 0,
+    "_cacheMode": 0,
+    "_sockets": [],
+    "_useTint": false,
+    "_debugMesh": false,
+    "_debugBones": false,
+    "_debugSlots": false,
+    "_enableBatch": false,
+    "loop": true,
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "d68Zin285KNpLZ7sDlSE1H"
+    "fileId": "dbk5Svji1NWZZnjW+1qkrl"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -203,7 +203,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "47K0zPO+JOC6iAK1CV5qSy",
+    "fileId": "9bGeVYxzFGkJtTbYtxbyDB",
     "instance": null,
     "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
@@ -345,6 +345,7 @@
       "__id__": 0
     },
     "fileId": "8bkivzFZFIz6JX98HiZYvP",
+    "instance": null,
     "targetOverrides": null
   }
 ]

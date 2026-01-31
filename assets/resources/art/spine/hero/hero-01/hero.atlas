@@ -1,0 +1,12 @@
+hero.png
+size:908,1020
+filter:Linear,Linear
+pma:true
+scale:0.95
+四肢
+bounds:2,479,902,536
+offsets:9,1,911,539
+身体
+bounds:2,2,475,592
+offsets:12,0,488,597
+rotate:90

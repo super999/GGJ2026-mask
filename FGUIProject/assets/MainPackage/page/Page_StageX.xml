@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1280,720">
   <displayList>
-    <graph id="n0_vg7n" name="n0" xy="-1,0" size="1280,720" type="rect" lineColor="#ffffff00" fillColor="#80000000"/>
-    <text id="n1_vg7n" name="text_state" xy="393,121" size="493,148" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="第 01 关"/>
-    <text id="n2_vg7n" name="text_notice_01" xy="421,479" size="438,67" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ffffff" align="center" text="按 任意 键 开始游戏"/>
+    <graph id="n0_vg7n" name="n0" xy="-2,0" size="1280,720" type="rect" lineColor="#ffffff00" fillColor="#80000000"/>
+    <text id="n1_vg7n" name="text_stage" xy="393,121" size="493,148" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="第 01 关"/>
+    <text id="n2_vg7n" name="text_notice_01" xy="420,479" size="438,67" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ffffff" align="center" text="按 任意 键 开始游戏"/>
+    <text id="n3_vg7n" name="text_notice_01" xy="261,310" size="756,81" font="ui://z5tfkaorvg7n8" fontSize="30" color="#ffffcc" strokeColor="#000000" shadowColor="#000000" shadowOffset="1,1" text="你需要在黑暗中控制小人。&#xA;胜利条件：躲开随机飞来的子弹/障碍。坚持 30 秒算赢。"/>
   </displayList>
 </component>

@@ -1,10 +1,29 @@
-import { _decorator, Component, input, Input, EventKeyboard, KeyCode, Vec3 } from 'cc';
-const { ccclass } = _decorator;
+import { _decorator, Component, input, Input, EventKeyboard, KeyCode, Vec3, sp, error } from 'cc';
+const { ccclass, property } = _decorator;
 
 @ccclass('PlayerMove')
 export class PlayerMove extends Component {
+  @property
   speed = 300;
+
+  @property
+  moveAnim = 'walk';
+
+  @property
+  idleAnim = 'idle';
+
   private dir = new Vec3();
+  private _spine: sp.Skeleton | null = null;
+  private _currentAnim: string | null = null;
+
+  onLoad() {
+    const spine_node = this.node.getChildByName('spine');
+    if (!spine_node)
+      return;
+    this._spine = spine_node?.getComponent(sp.Skeleton);
+    if (!this._spine)
+      error('PlayerMove: cannot find spine component on child node "spine"');
+  }
 
   onEnable() {
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
@@ -28,6 +47,19 @@ export class PlayerMove extends Component {
 
   update(dt: number) {
     const p = this.node.position;
+    const moving = this.dir.x !== 0 || this.dir.y !== 0;
     this.node.setPosition(p.x + this.dir.x * this.speed * dt, p.y + this.dir.y * this.speed * dt, p.z);
+
+    if (this._spine) {
+      const want = moving ? this.moveAnim : this.idleAnim;
+      if (want && this._currentAnim !== want) {
+        try {
+          this._spine.setAnimation(0, want, true);
+          this._currentAnim = want;
+        } catch (e) {
+          // ignore if animation name not found
+        }
+      }
+    }
   }
 }
