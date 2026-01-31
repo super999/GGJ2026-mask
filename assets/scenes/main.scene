@@ -678,7 +678,7 @@
       "__id__": 5
     },
     "interval": 0.6,
-    "bulletSpeed": 100,
+    "bulletSpeed": 200,
     "_id": "60NbfdMW9BzaKUcnVV2xfr"
   },
   {
@@ -957,9 +957,9 @@
     "soft": 0.03,
     "fogAlpha": 0.98,
     "enableBreath": true,
-    "breathAmp": 0.012,
+    "breathAmp": 0.04,
     "breathHz": 0.5,
-    "enableDifficulty": true,
+    "enableDifficulty": false,
     "difficultyDuration": 30,
     "minRadius": 0.12,
     "maxFogAlpha": 0.99,

@@ -8,7 +8,12 @@ import UIManager from './core/UIManager';
 
 const { ccclass, property } = _decorator;
 
-enum GameState { Ready, Playing, GameOver, Win }
+export enum GameStateCode {
+    Ready,
+    Playing,
+    GameOver,
+    Win
+}
 
 @ccclass('GameManager')
 export class GameManager extends Component {
@@ -22,10 +27,14 @@ export class GameManager extends Component {
     @property
     winTime = 30;
 
-    private state: GameState = GameState.Ready;
+    private state: GameStateCode = GameStateCode.Ready;
     private elapsed = 0;
 
     static instance: GameManager = null!;
+
+    public get GameState() {
+        return this.state;
+    }
 
     start() {
         // MVP：直接开局；如果你有 Start 面板，就在点击 Start 时再调用 startGame()
@@ -60,7 +69,7 @@ export class GameManager extends Component {
     }
 
     startGame() {
-        this.state = GameState.Playing;
+        this.state = GameStateCode.Playing;
         this.elapsed = 0;
         this.spawner.enabled = true;
         this.playerMove.enabled = true;
@@ -69,7 +78,7 @@ export class GameManager extends Component {
     }
 
     update(dt: number) {
-        if (this.state !== GameState.Playing) return;
+        if (this.state !== GameStateCode.Playing) return;
 
         this.elapsed += dt;
         this.setTextTime?.(this.elapsed);
@@ -80,9 +89,9 @@ export class GameManager extends Component {
     }
 
     private win() {
-        if (this.state !== GameState.Playing)
+        if (this.state !== GameStateCode.Playing)
             return;
-        this.state = GameState.Win;
+        this.state = GameStateCode.Win;
         this.requestGameWin();
         // TODO: show win panel
     }
@@ -102,9 +111,9 @@ export class GameManager extends Component {
     }
 
     requestGameOver(hitBullet: Node) {
-        if (this.state !== GameState.Playing)
+        if (this.state !== GameStateCode.Playing)
             return;
-        this.state = GameState.GameOver;
+        this.state = GameStateCode.GameOver;
         this.handleGameEnd();
     }
 
@@ -117,7 +126,7 @@ export class GameManager extends Component {
     public setTextTime: (time: number) => void = null!
 
     private onKeyDown(e: EventKeyboard) {
-        if (this.state !== GameState.Playing && e.keyCode === KeyCode.KEY_R) {
+        if (this.state !== GameStateCode.Playing && e.keyCode === KeyCode.KEY_R) {
             EventManager.instance.emit(GameEvents.RESTART);
         }
     }

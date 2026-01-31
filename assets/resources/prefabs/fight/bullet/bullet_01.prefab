@@ -278,23 +278,23 @@
     "life": 10,
     "startColor": {
       "__type__": "cc.Color",
-      "r": 80,
-      "g": 220,
+      "r": 255,
+      "g": 255,
       "b": 255,
       "a": 255
     },
     "midColor": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 230,
-      "b": 80,
+      "r": 236,
+      "g": 180,
+      "b": 61,
       "a": 255
     },
     "endColor": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 90,
-      "b": 90,
+      "r": 121,
+      "g": 0,
+      "b": 0,
       "a": 255
     },
     "enableLifeColor": true,
@@ -347,7 +347,6 @@
       "__id__": 0
     },
     "fileId": "2dO2e060dMwphwTvAb9jdQ",
-    "instance": null,
-    "targetOverrides": null
+    "instance": null
   }
 ]
