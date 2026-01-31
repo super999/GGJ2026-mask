@@ -1,4 +1,6 @@
 export const GameEvents = {
+    START_GAME: 'start-game',
+    QUIT_GAME: 'quit-game',
     FGUI_READY: 'fgui-ready',
     RESTART: 'game-restart',
 } as const;

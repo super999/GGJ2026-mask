@@ -13,7 +13,7 @@ export class BattleMain extends Component {
     }
 
     async onLoad(): Promise<void> {
-        await this.loadFGUIResources();
+        
         // GameManager 注册 setTextTime 方法
         GameManager.instance.setTextTime = this.setTextTime.bind(this);
     }
@@ -22,10 +22,6 @@ export class BattleMain extends Component {
         
     }
 
-    async loadFGUIResources() {
-        fgui.UIConfig.modalLayerColor = new Color(0, 0, 0, 0.6 * 255);
-        fgui.UIPackage.loadPackage("art/ui/MainPackage", this.onUILoaded.bind(this));
-    }
 
     onUILoaded() {
         this._view = fgui.UIPackage.createObject("MainPackage", "Game_PlayPage").asCom;

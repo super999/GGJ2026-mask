@@ -5,6 +5,7 @@ import { BattleMain } from './gui/BattleMain';
 import { GameEndPage } from './gui/GameEndPage';
 import EventManager, { GameEvents } from './core/EventManager';
 import UIManager from './core/UIManager';
+import { GameStartPage } from './gui/GameStartPage';
 
 const { ccclass, property } = _decorator;
 
@@ -38,7 +39,7 @@ export class GameManager extends Component {
 
     start() {
         // MVP：直接开局；如果你有 Start 面板，就在点击 Start 时再调用 startGame()
-        this.startGame();
+        // this.startGame();
     }
 
     onLoad() {
@@ -154,7 +155,7 @@ export class GameManager extends Component {
         }
 
         UIManager.instance.init(mountRoot);
-        const bm = UIManager.instance.show(BattleMain);
+        const bm = UIManager.instance.show(GameStartPage);
         if (!bm) {
             console.warn('GameManager: failed to attach BattleMain via UIManager');
         }
