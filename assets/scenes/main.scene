@@ -405,13 +405,13 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 68,
+      "g": 58,
+      "b": 58,
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "ae392084-b878-48e8-90ff-18cc43436c6d@f9941",
+      "__uuid__": "b6c8dccd-9865-4076-a835-b84c6e780b8f@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -584,7 +584,7 @@
     "uiRoot": {
       "__id__": 6
     },
-    "winTime": 10,
+    "winTime": 30,
     "_id": "3d6uPryJlOZIj8MqAe3lR+"
   },
   {
@@ -843,8 +843,8 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 637.716,
-      "y": 365.153,
+      "x": 640,
+      "y": 360,
       "z": 0
     },
     "_lrot": {
@@ -882,8 +882,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1280,
-      "height": 720
+      "width": 1350,
+      "height": 760
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -953,9 +953,16 @@
     "SpriteNode": {
       "__id__": 28
     },
-    "radius": 0.18,
+    "radius": 0.4,
     "soft": 0.03,
-    "fogAlpha": 0.75,
+    "fogAlpha": 0.98,
+    "enableBreath": true,
+    "breathAmp": 0.012,
+    "breathHz": 0.5,
+    "enableDifficulty": true,
+    "difficultyDuration": 30,
+    "minRadius": 0.12,
+    "maxFogAlpha": 0.99,
     "_id": "4apFjBNkhMDpiFs2uZx/h2"
   },
   {

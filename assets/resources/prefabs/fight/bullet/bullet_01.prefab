@@ -276,6 +276,28 @@
       "__id__": 13
     },
     "life": 10,
+    "startColor": {
+      "__type__": "cc.Color",
+      "r": 80,
+      "g": 220,
+      "b": 255,
+      "a": 255
+    },
+    "midColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 230,
+      "b": 80,
+      "a": 255
+    },
+    "endColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 90,
+      "b": 90,
+      "a": 255
+    },
+    "enableLifeColor": true,
     "_id": ""
   },
   {
