@@ -1,5 +1,6 @@
-import { _decorator, Component, Prefab, Node, Camera, instantiate, Vec3, view, math } from 'cc';
+import { _decorator, Component, Prefab, Node, Camera, instantiate, Vec3, view, math, log } from 'cc';
 import { Bullet } from './Bullet';
+import { SceneManager } from './SceneManager';
 
 const { ccclass, property } = _decorator;
 
@@ -14,8 +15,7 @@ export class BulletSpawner extends Component {
   @property({ type: Node })
   player: Node = null!;
 
-  @property({ type: Camera })
-  gameCamera: Camera = null!;
+  gameCamera: Camera = null!; 
 
   @property
   interval = 0.6;      // 刷弹间隔（秒）
@@ -24,6 +24,13 @@ export class BulletSpawner extends Component {
   bulletSpeed = 650;   // 子弹速度
 
   private _acc = 0;
+
+  
+  onLoad() {
+        this.gameCamera = SceneManager.instance.getGameCamera();
+        log('BulletSpawner loaded, camera=', this.gameCamera);
+    }
+
 
   update(dt: number) {
     this._acc += dt;

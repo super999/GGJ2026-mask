@@ -6,8 +6,14 @@ const { ccclass, property } = _decorator;
 @ccclass('PlayerHit')
 export class PlayerHit extends Component {
 
-    @property(GameManager)
+    // @property(GameManager)
     gm: GameManager = null!; // Inspector 拖入
+
+    onLoad() {
+        if (!this.gm) {
+            this.gm = GameManager.instance;
+        }
+    }
 
     start() {
         const col = this.getComponent(Collider2D)!;

@@ -22,6 +22,7 @@
     <component id="vg7nt" name="Button02.xml" path="/components/"/>
     <component id="vg7nu" name="Button03.xml" path="/components/"/>
     <image id="vg7nv" name="启动页面背景.jpg" path="/images/bg/"/>
+    <image id="vg7nw" name="启动页面背景2.jpg" path="/images/bg/"/>
   </resources>
   <publish name=""/>
 </packageDescription>

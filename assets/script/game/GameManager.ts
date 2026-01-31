@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, director, KeyCode, input, Input, EventKeyboard } from 'cc';
+import { _decorator, Component, Node, director, KeyCode, input, Input, EventKeyboard, Prefab, instantiate, Camera } from 'cc';
 import { BulletSpawner } from './BulletSpawner';
 import { PlayerMove } from './PlayerMove';
 import { BattleMain } from './gui/BattleMain';
@@ -6,6 +6,7 @@ import { GameEndPage } from './gui/GameEndPage';
 import EventManager, { GameEvents } from './core/EventManager';
 import UIManager from './core/UIManager';
 import { GameStartPage } from './gui/GameStartPage';
+import { SceneManager } from './SceneManager';
 
 const { ccclass, property } = _decorator;
 
@@ -14,7 +15,7 @@ export enum GameStateCode {
     Playing,
     GameOver,
     Win
-}
+} 
 
 @ccclass('GameManager')
 export class GameManager extends Component {
@@ -24,6 +25,9 @@ export class GameManager extends Component {
     @property(PlayerMove) playerMove: PlayerMove = null!; // 拖 PlayerMove 组件（或你自己的移动脚本）
 
     @property(Node) uiRoot: Node = null!; // 在编辑器中指定 UI 挂载节点（可留空，运行时回退到 Canvas）
+
+    @property({ type: Prefab })
+    fightLayerPrefab: Prefab = null!;
 
     @property
     winTime = 30;
@@ -56,7 +60,10 @@ export class GameManager extends Component {
         EventManager.instance.on(GameEvents.FGUI_READY, this._onFGUIReady);
         this._onRestart = this._onRestartCallback.bind(this);
         EventManager.instance.on(GameEvents.RESTART, this._onRestart);
+        this._onStart = this._onStartCallback.bind(this);
+        EventManager.instance.on(GameEvents.START_GAME, this._onStart);
     }
+
     onDisable() {
         input.off(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         if (this._onFGUIReady) {
@@ -66,6 +73,10 @@ export class GameManager extends Component {
         if (this._onRestart) {
             EventManager.instance.off(GameEvents.RESTART, this._onRestart);
             this._onRestart = null;
+        }
+        if (this._onStart) {
+            EventManager.instance.off(GameEvents.START_GAME, this._onStart);
+            this._onStart = null;
         }
     }
 
@@ -144,6 +155,11 @@ export class GameManager extends Component {
 
     private _onFGUIReady: ((...args: any[]) => void) | null = null;
 
+    private _fightLayerInstance: Node | null = null;
+    private _WorldRoot: Node | null = null;
+    private _onStart: ((...args: any[]) => void) | null = null;
+
+
     onFGUIReady() {
         if (this._uiLoaded) return;
         this._uiLoaded = true;
@@ -159,6 +175,51 @@ export class GameManager extends Component {
         if (!bm) {
             console.warn('GameManager: failed to attach BattleMain via UIManager');
         }
+    }
+
+    private _onStartCallback() {
+        if (this._fightLayerInstance) return; // already started
+        if (!this.fightLayerPrefab) {
+            console.warn('GameManager: fightLayerPrefab is not assigned');
+            return;
+        }
+
+        // 实例化战斗预制体并挂到场景
+        const inst = instantiate(this.fightLayerPrefab);
+        const parent = SceneManager.instance?.WorldCanvas;
+        if (parent) 
+            parent.addChild(inst);
+        this._fightLayerInstance = inst;
+        this._WorldRoot = inst.getChildByName('WorldRoot');
+
+        // 绑定 player, bulletLayer, spawner, playerMove（尽可能通过常见名字或组件查找）
+        const playerNode = this._WorldRoot.getChildByName('Player');
+        if (playerNode) 
+            this.player = playerNode;
+
+        const bulletLayerNode = this._WorldRoot.getChildByName('BulletLayer');
+        if (bulletLayerNode) 
+            this.bulletLayer = bulletLayerNode;
+
+        // 查找 BulletSpawner 组件
+        const spawnerComp = this._WorldRoot.getComponentInChildren(BulletSpawner) as BulletSpawner | null;
+        if (spawnerComp) 
+            this.spawner = spawnerComp;
+
+        // 查找 PlayerMove 组件
+        const playerMoveComp = playerNode.getComponent(PlayerMove) as PlayerMove;
+        if (playerMoveComp) 
+            this.playerMove = playerMoveComp;
+
+        // 确保初始为禁用，随后 startGame 会启用
+        if (this.spawner) 
+            this.spawner.enabled = false;
+        if (this.playerMove) 
+            this.playerMove.enabled = false;
+
+        // 切换 UI 到 BattleMain，并启动游戏
+        UIManager.instance.replace(GameStartPage, BattleMain);
+        this.startGame();
     }
 
     gameOverInternal() {

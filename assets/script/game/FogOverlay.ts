@@ -1,9 +1,11 @@
 import { _decorator, Component, Node, Camera, Vec2, Vec3, view, Sprite, renderer } from 'cc';
+import { SceneManager } from './SceneManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('FogSpotlight')
 export class FogSpotlight extends Component {
-  @property(Camera) gameCamera: Camera = null!;
+  // @property(Camera) 
+  gameCamera: Camera = null!;
   @property(Node) player: Node = null!;
   @property(Node) SpriteNode: Node = null!;
 
@@ -12,7 +14,7 @@ export class FogSpotlight extends Component {
   @property soft = 0.03;
   @property fogAlpha = 0.75;
 
-  // ===== 开关1：呼吸 =====
+  // ===== 开关1：呼吸 ===== 
   @property({ tooltip: '是否启用洞半径呼吸(轻微抖动/心跳感)' })
   enableBreath = true;
 
@@ -44,7 +46,7 @@ export class FogSpotlight extends Component {
   onLoad() {
     const sp = this.SpriteNode.getComponent(Sprite)!;
     this.mat = sp.getMaterialInstance(0)!;
-
+    this.gameCamera = SceneManager.instance.getGameCamera();
     this.baseRadius = this.radius;
     this.baseFogAlpha = this.fogAlpha;
   }
@@ -61,7 +63,7 @@ export class FogSpotlight extends Component {
     const wp = this.player.worldPosition;
     const screen = this.gameCamera.worldToScreen(wp, new Vec3());
 
-    const vs = view.getVisibleSize();
+    const vs = view.getVisibleSizeInPixel();
     let u = screen.x / vs.width;
     let v = screen.y / vs.height;
 

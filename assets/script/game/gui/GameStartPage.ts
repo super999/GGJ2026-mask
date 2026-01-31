@@ -6,8 +6,8 @@ const { ccclass, property } = _decorator;
 @ccclass('GameStartPage')
 export class GameStartPage extends Component {
     _view: fgui.GComponent = null!;
-    _button_start : fgui.GButton = null!;
-    _button_quit : fgui.GButton = null!;
+    _button_start: fgui.GButton = null!;
+    _button_quit: fgui.GButton = null!;
 
     async loadFGUIResources() {
         fgui.UIConfig.modalLayerColor = new Color(0, 0, 0, 0.6 * 255);
@@ -31,6 +31,16 @@ export class GameStartPage extends Component {
     onClickQuit() {
         log(`点击退出游戏按钮，发送 QUIT_GAME 事件`);
         EventManager.instance.emit(GameEvents.QUIT_GAME);
+    }
+
+    protected onDestroy(): void {
+        if (this._view) {
+            try {
+                this._view.removeFromParent();
+            } catch (e) {
+                console.warn('GameStartPage: failed to remove view from GRoot', e);
+            }
+        }
     }
 
 

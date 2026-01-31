@@ -15,6 +15,7 @@ export class BattleMain extends Component {
     async onLoad(): Promise<void> {
         
         // GameManager 注册 setTextTime 方法
+        this.onUILoaded();
         GameManager.instance.setTextTime = this.setTextTime.bind(this);
     }
 

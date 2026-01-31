@@ -23,7 +23,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 25
+      "__id__": 26
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -54,7 +54,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 26
+      "__id__": 27
     },
     "_id": "0e9dc3c7-9503-4fb3-9d3d-bcc634402c76"
   },
@@ -77,7 +77,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 24
+        "__id__": 25
       }
     ],
     "_prefab": null,
@@ -132,10 +132,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 22
+        "__id__": 23
       },
       {
-        "__id__": 23
+        "__id__": 24
       }
     ],
     "_prefab": null,
@@ -227,7 +227,7 @@
     "_priority": 0,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 374.73385379701915,
+    "_orthoHeight": 374.468085106383,
     "_near": 0,
     "_far": 2000,
     "_color": {
@@ -386,6 +386,9 @@
       },
       {
         "__id__": 16
+      },
+      {
+        "__id__": 22
       }
     ],
     "_prefab": null,
@@ -456,6 +459,10 @@
     "playerMove": null,
     "uiRoot": {
       "__id__": 17
+    },
+    "fightLayerPrefab": {
+      "__uuid__": "72e3f810-f186-4cf0-b4be-7c7ba1be3be9",
+      "__expectedType__": "cc.Prefab"
     },
     "winTime": 30,
     "_id": "efi91iTSFOvZ6HyA+HerNt"
@@ -571,7 +578,7 @@
     "_priority": 10,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 374.73385379701915,
+    "_orthoHeight": 374.468085106383,
     "_near": 1,
     "_far": 2000,
     "_color": {
@@ -642,6 +649,21 @@
     "_id": "e77mzr+3tBXr+mZthowPrb"
   },
   {
+    "__type__": "cc27faDK4FIA7LmlQ0gQj8S",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 14
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "WorldCanvas": {
+      "__id__": 3
+    },
+    "_id": "12yoypMrxE54rd3DYxvMKr"
+  },
+  {
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
@@ -697,7 +719,7 @@
     "asset": null,
     "fileId": "0e9dc3c7-9503-4fb3-9d3d-bcc634402c76",
     "instance": null,
-    "targetOverrides": [],
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": [
       {
         "__id__": 6
@@ -707,28 +729,28 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 27
-    },
-    "shadows": {
       "__id__": 28
     },
-    "_skybox": {
+    "shadows": {
       "__id__": 29
     },
-    "fog": {
+    "_skybox": {
       "__id__": 30
     },
-    "octree": {
+    "fog": {
       "__id__": 31
     },
-    "skin": {
+    "octree": {
       "__id__": 32
     },
-    "lightProbeInfo": {
+    "skin": {
       "__id__": 33
     },
-    "postSettings": {
+    "lightProbeInfo": {
       "__id__": 34
+    },
+    "postSettings": {
+      "__id__": 35
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false
