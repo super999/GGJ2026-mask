@@ -9,6 +9,7 @@ import { GameStartPage } from './gui/GameStartPage';
 import { SceneManager } from './SceneManager';
 import { game } from 'cc';
 import { GameStagePage } from './gui/GameStagePage';
+import { FogSpotlight } from './FogOverlay';
 
 const { ccclass, property } = _decorator;
 
@@ -73,6 +74,8 @@ export class GameManager extends Component {
         EventManager.instance.on(GameEvents.QUIT_GAME, this._onQuit);
         this._onStageEnter = this._onStageEnterCallback.bind(this);
         EventManager.instance.on(GameEvents.ENTER_STAGE, this._onStageEnter);
+        this._onNextStage = this._onNextStageCallback.bind(this);
+        EventManager.instance.on(GameEvents.NEXT_STAGE, this._onNextStage);
     }
 
     onDisable() {
@@ -97,9 +100,23 @@ export class GameManager extends Component {
             EventManager.instance.off(GameEvents.ENTER_STAGE, this._onStageEnter);
             this._onStageEnter = null;
         }
+        if (this._onNextStage) {
+            EventManager.instance.off(GameEvents.NEXT_STAGE, this._onNextStage);
+            this._onNextStage = null;
+        }
     }
 
     setHeartCount: (count: number) => void = null!;
+
+    private resetFogSpotlight() {
+        if (!this._fightLayerInstance) return;
+        try {
+            const fogs = this._fightLayerInstance.getComponentsInChildren(FogSpotlight);
+            for (const fog of fogs) fog.resetDifficultyClock();
+        } catch (e) {
+            // ignore if fog not present
+        }
+    }
 
     startGame() {
         this.state = GameStateCode.Playing;
@@ -107,6 +124,9 @@ export class GameManager extends Component {
         // 重置血量
         this.curHeartCount = this.defaultHeartCount;
         this.setHeartCount?.(this.curHeartCount);
+
+        // 下一关/重开：重置雾的难度计时
+        this.resetFogSpotlight();
 
         this.spawner.enabled = true;
         this.playerMove.enabled = true;
@@ -195,6 +215,7 @@ export class GameManager extends Component {
     private _onStart: ((...args: any[]) => void) | null = null;
     private _onQuit: ((...args: any[]) => void) | null = null;
     private _onStageEnter: ((...args: any[]) => void) | null = null;
+    private _onNextStage: ((...args: any[]) => void) | null = null;
 
 
     onFGUIReady() {
@@ -215,51 +236,51 @@ export class GameManager extends Component {
     }
 
     private _onStartCallback() {
-        if (this._fightLayerInstance) return; // already started
-        if (!this.fightLayerPrefab) {
-            console.warn('GameManager: fightLayerPrefab is not assigned');
-            return;
-        }
         const parent = SceneManager.instance?.WorldCanvas;
         if (!parent) {
             error('GameManager: cannot find WorldCanvas from SceneManager');
             return;
         }
-        const StartPage = parent.getChildByName('Start') as Node;
-        if (StartPage)
-            StartPage.destroy();
 
-        // 实例化战斗预制体并挂到场景
-        const inst = instantiate(this.fightLayerPrefab);
-        parent.addChild(inst);
+        // 下一关/重新开始时，会重复触发 START_GAME：不要因为已有实例就直接 return
+        if (!this._fightLayerInstance) {
+            if (!this.fightLayerPrefab) {
+                console.warn('GameManager: fightLayerPrefab is not assigned');
+                return;
+            }
+            const StartPage = parent.getChildByName('Start') as Node;
+            if (StartPage) StartPage.destroy();
 
-        this._fightLayerInstance = inst;
-        this._WorldRoot = inst.getChildByName('WorldRoot');
+            // 实例化战斗预制体并挂到场景
+            const inst = instantiate(this.fightLayerPrefab);
+            parent.addChild(inst);
+
+            this._fightLayerInstance = inst;
+            this._WorldRoot = inst.getChildByName('WorldRoot');
+        } else {
+            // 尝试补齐引用（防止中途节点引用丢失）
+            if (!this._WorldRoot) this._WorldRoot = this._fightLayerInstance.getChildByName('WorldRoot');
+        }
+
+        if (!this._WorldRoot) {
+            error('GameManager: WorldRoot not found in fightLayerPrefab instance');
+            return;
+        }
 
         // 绑定 player, bulletLayer, spawner, playerMove（尽可能通过常见名字或组件查找）
         const playerNode = this._WorldRoot.getChildByName('Player');
-        if (playerNode)
-            this.player = playerNode;
+        if (playerNode) this.player = playerNode;
 
         const bulletLayerNode = this._WorldRoot.getChildByName('BulletLayer');
-        if (bulletLayerNode)
-            this.bulletLayer = bulletLayerNode;
+        if (bulletLayerNode) this.bulletLayer = bulletLayerNode;
 
         // 查找 BulletSpawner 组件
         const spawnerComp: BulletSpawner = this._WorldRoot.getComponentInChildren(BulletSpawner);
-        if (spawnerComp)
-            this.spawner = spawnerComp;
+        if (spawnerComp) this.spawner = spawnerComp;
 
         // 查找 PlayerMove 组件
-        const playerMoveComp: PlayerMove = playerNode.getComponent(PlayerMove);
-        if (playerMoveComp)
-            this.playerMove = playerMoveComp;
-
-        // 确保初始为禁用，随后 startGame 会启用
-        if (this.spawner)
-            this.spawner.enabled = false;
-        if (this.playerMove)
-            this.playerMove.enabled = false;
+        const playerMoveComp: PlayerMove | null = (this.player ? this.player.getComponent(PlayerMove) : null);
+        if (playerMoveComp) this.playerMove = playerMoveComp;
 
         // 切换 UI 到 BattleMain，并启动游戏
         UIManager.instance.replace(GameStagePage, BattleMain);
@@ -292,6 +313,12 @@ export class GameManager extends Component {
 
     _onStageEnterCallback() {
          UIManager.instance.replace(GameStartPage, GameStagePage);
+    }
+
+    _onNextStageCallback() {
+        // 进入下一关：自增 StageIndex 并显示分关页面
+        this.StageIndex += 1;
+        UIManager.instance.replace(GameEndPage, GameStagePage);
     }
 
 }

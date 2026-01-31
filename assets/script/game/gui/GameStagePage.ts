@@ -3,12 +3,14 @@ import * as fgui from "fairygui-cc";
 import UIManager from '../core/UIManager';
 import { GameStartPage } from './GameStartPage';
 import EventManager, { GameEvents } from '../core/EventManager';
+import { GameManager } from '../GameManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('GameStagePage')
 export class GameStagePage extends Component {
     _view: fgui.GComponent = null!;
     _button_ready: fgui.GButton = null!;
+    _text_stage: fgui.GTextField = null!;
 
     start() {
         this.onUILoaded();
@@ -20,6 +22,9 @@ export class GameStagePage extends Component {
         fgui.GRoot.inst.addChild(this._view);
         this._button_ready = this._view.getChild("button_ready") as fgui.GButton;
         this._button_ready.onClick(this.onClickReady, this);
+        this._text_stage = this._view.getChild("text_stage") as fgui.GTextField;
+        const stage = GameManager.instance.StageIndex;
+        this._text_stage.text = `第 ${stage} 关`;
     }
 
     update(deltaTime: number) {

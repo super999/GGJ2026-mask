@@ -33,11 +33,13 @@ export class GameEndPage extends Component {
             this._text_state.text = "恭喜通关！";
             this._text_notice_time.text = `坚持了：${elapsed.toFixed(2)} 秒。`;
             AudioManager.instance.playEffect('audio/sound/mission_succ', 1);
+            this._button_restart.title = "下一关";
         }
         else if (GameManager.instance.GameState == GameStateCode.GameOver) {
             this._text_state.text = "游戏失败！";
             this._text_notice_time.text = `你坚持了：${elapsed.toFixed(2)} 秒，请再接再厉！`;
             AudioManager.instance.playEffect('audio/sound/mission_fail', 1);
+            this._button_restart.title = "重新开始";
         }
     }
 
@@ -46,8 +48,24 @@ export class GameEndPage extends Component {
 
     onClickRestart() {
         // 发出重启事件
-        log("点击重新开始按钮，发送 RESTART 事件");
-        EventManager.instance.emit(GameEvents.RESTART);
+        if (GameManager.instance.GameState == GameStateCode.Win) {
+            log("点击下一关按钮，发送 NEXT_STAGE 事件");
+            EventManager.instance.emit(GameEvents.NEXT_STAGE);
+        }
+        else if (GameManager.instance.GameState == GameStateCode.GameOver) {
+            log("点击重新开始按钮，发送 RESTART 事件");
+            EventManager.instance.emit(GameEvents.RESTART);
+        }        
+    }
+
+    protected onDestroy(): void {
+        if (this._view) {
+            try {
+                this._view.removeFromParent();
+            } catch (e) {
+                console.warn('GameStartPage: failed to remove view from GRoot', e);
+            }
+        }
     }
 }
 

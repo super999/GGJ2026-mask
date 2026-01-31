@@ -16,6 +16,10 @@ export class PlayerMove extends Component {
   private _spine: sp.Skeleton | null = null;
   private _currentAnim: string | null = null;
 
+  private resetInputState() {
+    this.dir.set(0, 0, 0);
+  }
+
   onLoad() {
     const spine_node = this.node.getChildByName('spine');
     if (!spine_node)
@@ -26,12 +30,16 @@ export class PlayerMove extends Component {
   }
 
   onEnable() {
+    // 避免上一局按键“卡住”（比如结算 UI 按钮保持按下态导致没收到 KEY_UP）
+    this.resetInputState();
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
   }
   onDisable() {
     input.off(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     input.off(Input.EventType.KEY_UP, this.onKeyUp, this);
+    // 组件关闭时清空方向，防止下一次启用后自动移动
+    this.resetInputState();
   }
 
   onKeyDown(e: EventKeyboard) { this.setKey(e.keyCode, true); }

@@ -1,7 +1,8 @@
-import { _decorator, Component, Prefab, Node, Camera, instantiate, Vec3, view, math, log, director, resources, JsonAsset, warn } from 'cc';
+import { _decorator, Component, Prefab, Node, Camera, instantiate, Vec3, view, math, log, director, resources, JsonAsset, warn, error } from 'cc';
 import { Bullet } from './Bullet';
 import { SceneManager } from './SceneManager';
 import AudioManager from './core/AudioManager';
+import { GameManager } from './GameManager';
 
 const { ccclass, property } = _decorator;
 
@@ -78,11 +79,27 @@ export class BulletSpawner extends Component {
     this._bulletPrefab = await this.getOrLoadPrefab(this.bulletPrefabPath);
   }
 
+  private real_interval = 0;
+
+  setDifficultyLevel() {
+    // 可选：根据游戏进度调整 spawn 频率、子弹速度等
+    const stageIdx = GameManager.instance.StageIndex;
+    // real_interval  为 interval 乘以 0.95 的 stageIdx 次方，最低不低于 0.3 秒
+    this.real_interval = Math.max(0.3, this.interval * Math.pow(0.95, stageIdx));
+  }
+
+  protected onEnable(): void {
+    setTimeout(() => {
+      this.setDifficultyLevel();
+    }, 0);
+    this._acc = 0;
+  }
+
 
   update(dt: number) {
     this._acc += dt;
-    if (this._acc < this.interval) return;
-    this._acc -= this.interval;
+    if (this._acc < this.real_interval) return;
+    this._acc -= this.real_interval;
 
     this.spawnOne();
   }
@@ -107,24 +124,24 @@ export class BulletSpawner extends Component {
     // 选择随机子弹 prefab 路径（优先使用 stages 列表）
     let prefabPath = this.bulletPrefabPath;
     if (this._stages && this._stages.length > 0) {
-      const ridx = math.randomRangeInt(0, this._stages.length);
-      const rchosen = this._stages[ridx];
+      //const ridx = math.randomRangeInt(0, this._stages.length);
+      const fidx = GameManager.instance.StageIndex % this._stages.length;
+      const rchosen = this._stages[fidx];
       if (rchosen && rchosen.bullet) prefabPath = rchosen.bullet;
-      warn(`BulletSpawner: random index=${ridx} chosen prefab=${prefabPath}`);
+      // warn(`BulletSpawner: random index=${fidx} chosen prefab=${prefabPath}`);
     }
 
     // 异步获取 prefab（若未缓存会加载），然后实例化并设置位置
     let b: Node = null!;
     try {
       const prefab = this._prefabCache.get(prefabPath) ?? await this.getOrLoadPrefab(prefabPath);
-      warn(`BulletSpawner: spawning bullet from prefab=${prefabPath}`);
+      // warn(`BulletSpawner: spawning bullet from prefab=${prefabPath}`);
       b = instantiate(prefab);
       b.setParent(this.bulletParent);
       b.setWorldPosition(worldPos);
       try { if (this.bulletParent) this.bulletParent.addChild(b); } catch (e) { }
     } catch (e) {
-      log('BulletSpawner: failed to load/instantiate prefab', prefabPath, e);
-
+      error('BulletSpawner: failed to load/instantiate prefab', prefabPath, e);
     }
     // 4) 计算朝向玩家的方向
     const p = this.player.worldPosition;

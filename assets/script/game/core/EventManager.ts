@@ -4,6 +4,7 @@ export const GameEvents = {
     QUIT_GAME: 'quit-game',
     FGUI_READY: 'fgui-ready',
     RESTART: 'game-restart',
+    NEXT_STAGE: 'next-stage',
 } as const;
 
 type EventCallback = (...args: any[]) => void;
