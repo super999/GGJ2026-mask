@@ -4,5 +4,6 @@
     <component id="n0_am65" name="hud" src="am653" fileName="components/hud_01.xml" xy="1005,10">
       <relation target="" sidePair="right-right,top-top"/>
     </component>
+    <text id="n2_vg7n" name="text_tip01" xy="26,44" size="465,119" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="使用↑↓←→移动小人"/>
   </displayList>
 </component>

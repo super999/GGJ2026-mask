@@ -2,7 +2,9 @@ import { _decorator, Component, Node, director, KeyCode, input, Input, EventKeyb
 import { BulletSpawner } from './BulletSpawner';
 import { PlayerMove } from './PlayerMove';
 import { BattleMain } from './gui/BattleMain';
+import { GameEndPage } from './gui/GameEndPage';
 import EventManager, { GameEvents } from './core/EventManager';
+import UIManager from './core/UIManager';
 
 const { ccclass, property } = _decorator;
 
@@ -42,12 +44,18 @@ export class GameManager extends Component {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         this._onFGUIReady = this.onFGUIReady.bind(this);
         EventManager.instance.on(GameEvents.FGUI_READY, this._onFGUIReady);
+        this._onRestart = this._onRestartCallback.bind(this);
+        EventManager.instance.on(GameEvents.RESTART, this._onRestart);
     }
     onDisable() {
         input.off(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         if (this._onFGUIReady) {
             EventManager.instance.off(GameEvents.FGUI_READY, this._onFGUIReady);
             this._onFGUIReady = null;
+        }
+        if (this._onRestart) {
+            EventManager.instance.off(GameEvents.RESTART, this._onRestart);
+            this._onRestart = null;
         }
     }
 
@@ -110,8 +118,14 @@ export class GameManager extends Component {
 
     private onKeyDown(e: EventKeyboard) {
         if (this.state !== GameState.Playing && e.keyCode === KeyCode.KEY_R) {
-            this.restart();
+            EventManager.instance.emit(GameEvents.RESTART);
         }
+    }
+
+    private _onRestart: ((...args: any[]) => void) | null = null;
+
+    private _onRestartCallback() {
+        this.restart();
     }
 
     private _pendingGameEnd = false;
@@ -130,10 +144,10 @@ export class GameManager extends Component {
             if (scene) mountRoot = scene.getChildByName('Canvas') || scene;
         }
 
-        if (mountRoot) {
-            mountRoot.addComponent(BattleMain);
-        } else {
-            console.warn('GameManager: no uiRoot found to attach BattleMain');
+        UIManager.instance.init(mountRoot);
+        const bm = UIManager.instance.show(BattleMain);
+        if (!bm) {
+            console.warn('GameManager: failed to attach BattleMain via UIManager');
         }
     }
 
@@ -144,6 +158,9 @@ export class GameManager extends Component {
 
         // 2) （可选）把现有子弹也停掉：最简单就是清掉
         this.clearBullets();
+        // 3) 关闭 BattleMain，打开结算页面
+        UIManager.instance.replace(BattleMain, GameEndPage);
+
         console.log('GAME End - Press R');
     }
 

@@ -1,5 +1,6 @@
 export const GameEvents = {
     FGUI_READY: 'fgui-ready',
+    RESTART: 'game-restart',
 } as const;
 
 type EventCallback = (...args: any[]) => void;

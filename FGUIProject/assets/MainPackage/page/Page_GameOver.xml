@@ -2,7 +2,8 @@
 <component size="1280,720">
   <displayList>
     <graph id="n0_vg7n" name="n0" xy="0,0" size="1280,720" type="rect" lineColor="#ffffff00" fillColor="#80000000"/>
-    <text id="n1_vg7n" name="text_state" xy="393,121" size="493,148" font="Source Han Sans SC" fontSize="50" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="游戏结束"/>
-    <text id="n2_vg7n" name="text_notice_01" xy="449,366" size="382,67" font="Source Han Sans SC" fontSize="50" color="#ffffff" align="center" text="按 R 键 重新开始"/>
+    <text id="n1_vg7n" name="text_state" xy="393,121" size="493,148" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="游戏结束"/>
+    <text id="n2_vg7n" name="text_notice_01" xy="449,392" size="374,67" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ffffff" align="center" text="按 R 键 重新开始"/>
+    <component id="n3_vg7n" name="button_restart" src="vg7n7" fileName="components/button_restart.xml" xy="413,470"/>
   </displayList>
 </component>

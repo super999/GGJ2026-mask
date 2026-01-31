@@ -1,0 +1,8 @@
+[Assets] ../resources/game/effects/fog_hole.effect - linking: Error EFX2601: illegal custom binding for 'FogParams', block bindings should be consecutive and start from 0 
+Error: [Assets] ../resources/game/effects/fog_hole.effect - linking: Error EFX2601: illegal custom binding for 'FogParams', block bindings should be consecutive and start from 0 
+    at console.error (C:\ProgramData\cocos\editors\Creator\3.8.8\resources\app.asar\node_modules\@sentry\core\src\utils-hoist\instrument\console.ts:40:14) 
+    at NewConsole.error (C:\ProgramData\cocos\editors\Creator\3.8.8\resources\app.asar\builtin\asset-db\dist\worker\console.ccc:1:1536) 
+    at import (C:\ProgramData\cocos\editors\Creator\3.8.8\resources\app.asar\modules\engine-extensions\extensions\engine-extends\dist\handler\assets\effect.ccc:1:7007) 
+    at runNextTicks (node:internal/process/task_queues:60:5) 
+    at processImmediate (node:internal/timers:449:9) 
+    at CustomImporter.import (C:\ProgramData\cocos\editors\Creator\3.8.8\resources\app.asar\builtin\asset-db\dist\worker\manager\asset-handler-manager.ccc:1:1249) 

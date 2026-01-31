@@ -37,9 +37,28 @@ export class BattleMain extends Component {
         this._txtTime.text = "00:00";
     }
 
+    onDestroy() {
+        if (this._view) {
+            try {
+                this._view.removeFromParent();
+            } catch (e) {
+                console.warn('BattleMain: failed to remove view from GRoot', e);
+            }
+            this._view = null!;
+        }
+        if (GameManager.instance) {
+            GameManager.instance.setTextTime = null!;
+        }
+    }
+
     setTextTime(time: number) {
         if (this._txtTime) {
-            this._txtTime.text = time.toFixed(2);
+            const totalSeconds = Math.max(0, Math.floor(time));
+            const minutes = Math.floor(totalSeconds / 60);
+            const secs = totalSeconds % 60;
+            const mm = minutes < 10 ? '0' + minutes : String(minutes);
+            const ss = secs < 10 ? '0' + secs : String(secs);
+            this._txtTime.text = `${mm}:${ss}`;
         }
     }
 }

@@ -5,7 +5,11 @@
     <image id="am651" name="时钟.png" path="/images/hud/"/>
     <image id="am652" name="计时器bg.png" path="/images/hud/"/>
     <component id="am653" name="hud_01.xml" path="/components/"/>
-    <component id="vg7n5" name="Page_GameOver.xml" path="/page/" exported="true"/>
+    <component id="vg7n5" name="Page_StageX.xml" path="/page/" exported="true"/>
+    <image id="vg7n6" name="重新开始.png" path="/images/hud/"/>
+    <component id="vg7n7" name="button_restart.xml" path="/components/"/>
+    <font id="vg7n8" name="SourceHanSansCN-Heavy.ttf" path="/font/" renderMode="" samplePointSize="16"/>
+    <component id="vg7n9" name="Page_GameOver.xml" path="/page/" exported="true"/>
   </resources>
   <publish name=""/>
 </packageDescription>
