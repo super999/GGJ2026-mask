@@ -5,5 +5,10 @@
       <relation target="" sidePair="right-right,top-top"/>
     </component>
     <text id="n2_vg7n" name="text_tip01" xy="3,10" size="568,119" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="使用↑↓←→控制移动"/>
+    <list id="n7_vg7n" name="list_heart" xy="766,26" size="224,75" layout="flow_hz" overflow="scroll" defaultItem="ui://z5tfkaorvg7n11">
+      <item/>
+      <item/>
+      <item/>
+    </list>
   </displayList>
 </component>

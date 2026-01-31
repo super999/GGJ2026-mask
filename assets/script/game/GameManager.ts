@@ -37,6 +37,10 @@ export class GameManager extends Component {
     private state: GameStateCode = GameStateCode.Ready;
     public  elapsed = 0;
 
+    public curHeartCount = 3;
+    public defaultHeartCount = 3;
+
+
     static instance: GameManager = null!;
 
     public get GameState() {

@@ -25,6 +25,9 @@
     <image id="vg7nw" name="启动页面背景2.jpg" path="/images/bg/"/>
     <image id="vg7nx" name="MaskLight.png" path="/images/ui/"/>
     <image id="vg7ny" name="黑雾微光.png" path="/images/ui/"/>
+    <image id="vg7nz" name="爱心.png" path="/images/ui/"/>
+    <image id="vg7n10" name="爱心-s.png" path="/images/ui/"/>
+    <component id="vg7n11" name="hub_heart_item.xml" path="/components/"/>
   </resources>
   <publish name=""/>
 </packageDescription>
