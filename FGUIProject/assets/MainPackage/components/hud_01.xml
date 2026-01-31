@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="262,74">
+  <displayList>
+    <image id="n0_am65" name="n0" src="am652" fileName="images/hud/计时器bg.png" xy="0,8"/>
+    <image id="n1_am65" name="n1" src="am651" fileName="images/hud/时钟.png" xy="4,0"/>
+    <text id="n2_am65" name="text_time" xy="127,19" size="85,44" font="Source Han Sans SC" fontSize="32" color="#ffffff" align="center" vAlign="middle" text="11:00">
+      <relation target="" sidePair="middle-middle"/>
+    </text>
+  </displayList>
+</component>

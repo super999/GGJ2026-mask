@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="z5tfkaor">
+  <resources>
+    <component id="tpyd0" name="Game_PlayPage.xml" path="/" exported="true"/>
+    <image id="am651" name="时钟.png" path="/images/hud/"/>
+    <image id="am652" name="计时器bg.png" path="/images/hud/"/>
+    <component id="am653" name="hud_01.xml" path="/components/"/>
+    <component id="vg7n5" name="Page_GameOver.xml" path="/page/" exported="true"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

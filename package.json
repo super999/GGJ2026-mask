@@ -1,0 +1,10 @@
+{
+  "name": "GGJ2026-mask",
+  "uuid": "a9f99241-238c-41bd-8892-b4e551617647",
+  "creator": {
+    "version": "3.8.8"
+  },
+  "dependencies": {
+    "fairygui-cc": "^1.2.2"
+  }
+}
