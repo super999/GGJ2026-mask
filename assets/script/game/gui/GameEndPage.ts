@@ -2,6 +2,7 @@ import { _decorator, Component, log, Node } from 'cc';
 import * as fgui from "fairygui-cc";
 import EventManager, { GameEvents } from '../core/EventManager';
 import { GameManager, GameStateCode } from '../GameManager';
+import AudioManager from '../core/AudioManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('GameEndPage')
@@ -30,10 +31,13 @@ export class GameEndPage extends Component {
         const elapsed = GameManager.instance.elapsed;
         if (GameManager.instance.GameState == GameStateCode.Win) {
             this._text_state.text = "恭喜通关！";
+            this._text_notice_time.text = `坚持了：${elapsed.toFixed(2)} 秒。`;
+            AudioManager.instance.playEffect('audio/sound/mission_succ', 1);
         }
         else if (GameManager.instance.GameState == GameStateCode.GameOver) {
             this._text_state.text = "游戏失败！";
             this._text_notice_time.text = `你坚持了：${elapsed.toFixed(2)} 秒，请再接再厉！`;
+            AudioManager.instance.playEffect('audio/sound/mission_fail', 1);
         }
     }
 

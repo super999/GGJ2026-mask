@@ -568,10 +568,6 @@
     "__prefab": {
       "__id__": 27
     },
-    "bulletPrefab": {
-      "__uuid__": "29502a35-4958-47ff-8f6c-5ea1f2659a00",
-      "__expectedType__": "cc.Prefab"
-    },
     "bulletParent": {
       "__id__": 19
     },
@@ -849,9 +845,9 @@
     "SpriteNode": {
       "__id__": 33
     },
-    "radius": 0.4,
+    "radius": 0.25,
     "soft": 0.03,
-    "fogAlpha": 0.98,
+    "fogAlpha": 0.97,
     "enableBreath": true,
     "breathAmp": 0.04,
     "breathHz": 0.5,
