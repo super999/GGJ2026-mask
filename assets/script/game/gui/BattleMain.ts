@@ -7,6 +7,13 @@ import { GameManager } from '../GameManager';
 export class BattleMain extends Component {
     private _view: fgui.GComponent = null!;
     private _txtTime: fgui.GTextField = null!;
+    private _list_hearts: fgui.GList = null!;
+    
+    setHeartCount(count: number) {
+        if (this._list_hearts) {
+            this._list_hearts.numItems = count;
+        }
+    }
 
     start() {
 
@@ -16,6 +23,7 @@ export class BattleMain extends Component {
         // GameManager 注册 setTextTime 方法
         this.onUILoaded();
         GameManager.instance.setTextTime = this.setTextTime.bind(this);
+        GameManager.instance.setHeartCount = this.setHeartCount.bind(this);
     }
 
     onUILoaded() {
@@ -26,6 +34,7 @@ export class BattleMain extends Component {
         const hub_com = this._view.getChild("hud").asCom;
         this._txtTime = hub_com.getChild("text_time") as fgui.GTextField;
         this._txtTime.text = "00:00";
+        this._list_hearts = this._view.getChild("list_heart") as fgui.GList;
     }
 
     onDestroy() {

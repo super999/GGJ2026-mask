@@ -40,6 +40,7 @@ export class GameManager extends Component {
     public curHeartCount = 3;
     public defaultHeartCount = 3;
 
+    public StageIndex = 1;
 
     static instance: GameManager = null!;
 
@@ -98,9 +99,15 @@ export class GameManager extends Component {
         }
     }
 
+    setHeartCount: (count: number) => void = null!;
+
     startGame() {
         this.state = GameStateCode.Playing;
         this.elapsed = 0;
+        // 重置血量
+        this.curHeartCount = this.defaultHeartCount;
+        this.setHeartCount?.(this.curHeartCount);
+
         this.spawner.enabled = true;
         this.playerMove.enabled = true;
         this.setTextTime?.(0);
@@ -140,10 +147,21 @@ export class GameManager extends Component {
     }
 
     requestGameOver(hitBullet: Node) {
-        if (this.state !== GameStateCode.Playing)
-            return;
-        this.state = GameStateCode.GameOver;
-        this.handleGameEnd();
+        // 当玩家被击中时，先扣除一颗心；只有血量为 0 时才真正结束游戏
+        if (this.state !== GameStateCode.Playing) return;
+
+        // 扣血
+        this.curHeartCount = Math.max(0, this.curHeartCount - 1);
+        // 更新 UI（如果有绑定的回调）
+        this.setHeartCount?.(this.curHeartCount);
+
+        if (this.curHeartCount <= 0) {
+            this.state = GameStateCode.GameOver;
+            this.handleGameEnd();
+        } else {
+            // 非致命被击中：可在此播放受击反馈、短暂无敌或复活逻辑
+            console.log('Player hit, remaining hearts:', this.curHeartCount);
+        }
     }
 
     restart() {

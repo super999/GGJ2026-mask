@@ -1,4 +1,4 @@
-import { _decorator, Component, Prefab, Node, Camera, instantiate, Vec3, view, math, log, director } from 'cc';
+import { _decorator, Component, Prefab, Node, Camera, instantiate, Vec3, view, math, log, director, resources } from 'cc';
 import { Bullet } from './Bullet';
 import { SceneManager } from './SceneManager';
 import AudioManager from './core/AudioManager';
@@ -7,8 +7,8 @@ const { ccclass, property } = _decorator;
 
 @ccclass('BulletSpawner')
 export class BulletSpawner extends Component {
-  @property({ type: Prefab })
-  bulletPrefab: Prefab = null!;
+  // @property({ type: Prefab })
+  // bulletPrefab: Prefab = null!;
 
   @property({ type: Node })
   bulletParent: Node = null!;
@@ -28,11 +28,35 @@ export class BulletSpawner extends Component {
   soundRange = 1200; // 在世界坐标下，玩家与子弹距离小于此值才播放音效
 
   private _acc = 0;
-
+  private bulletPrefabPath = 'prefabs/fight/bullet/bullet_01';
+  private _bulletPrefab: Prefab | null = null;
   
-  onLoad() {
+  getOrLoadPrefab(path: string): Promise<Prefab> {
+    return new Promise<Prefab>((resolve, reject) => {
+      if (this._bulletPrefab) {
+        resolve(this._bulletPrefab);
+        return;
+      }
+      try {
+        resources.load(path, Prefab, (err, asset) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          this._bulletPrefab = asset as Prefab;
+          resolve(this._bulletPrefab);
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
+  async onLoad() {
         this.gameCamera = SceneManager.instance.getGameCamera();
         log('BulletSpawner loaded, camera=', this.gameCamera);
+        // Load the bullet prefab asynchronously
+        this._bulletPrefab = await this.getOrLoadPrefab(this.bulletPrefabPath);        
     }
 
 
@@ -45,7 +69,7 @@ export class BulletSpawner extends Component {
   }
 
   private spawnOne() {
-    const b = instantiate(this.bulletPrefab);
+    const b = instantiate(this._bulletPrefab!);
     b.setParent(this.bulletParent);
 
     // 1) 取屏幕尺寸（像素）
@@ -80,14 +104,14 @@ export class BulletSpawner extends Component {
       const dy = pWorld.y - worldPos.y;
       const dist2 = dx * dx + dy * dy;
       if (dist2 <= this.soundRange * this.soundRange) {
-        AudioManager.instance.playEffect('audio/sound/skill3_1', 1);
+        AudioManager.instance.playEffect('audio/sound/skill3_1', 0.5);
       }
       else{
         log('BulletSpawner: sound skipped, dist=', Math.sqrt(dist2));
       }
     } catch (e) {
       // 如果查询位置出错，仍尝试播放（兼容旧逻辑）
-      AudioManager.instance.playEffect('audio/sound/skill3_1', 1);
+      AudioManager.instance.playEffect('audio/sound/skill3_1', 0.5);
     }
   }
 }

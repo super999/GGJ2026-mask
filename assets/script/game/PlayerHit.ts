@@ -1,6 +1,7 @@
 import { _decorator, Component } from 'cc';
 import { Collider2D, Contact2DType, IPhysics2DContact } from 'cc';
 import { GameManager } from './GameManager';
+import AudioManager from './core/AudioManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('PlayerHit')
@@ -33,5 +34,9 @@ export class PlayerHit extends Component {
         // 不要在回调里 destroy：延迟到下一帧
         other.enabled = false; 
         this.gm.requestGameOver(other.node);
+        this.scheduleOnce(() => {
+            other.node.destroy();
+        }, 0);
+        AudioManager.instance.playEffect('audio/sound/bullet10', 0.5);
     }
 }

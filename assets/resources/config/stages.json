@@ -1,0 +1,20 @@
+[
+    {
+        "level": 1,
+        "name": "Stage 1",
+        "bullet": "prefabs/fight/bullet/bullet_01",
+        "interval": 0.6
+    },
+    {
+        "level": 2,
+        "name": "Stage 2",
+        "bullet": "prefabs/fight/bullet/bullet_02",
+        "interval": 0.4
+    },
+    {
+        "level": 3,
+        "name": "Stage 3",
+        "bullet": "prefabs/fight/bullet/bullet_03",
+        "interval": 0.5
+    }
+]
