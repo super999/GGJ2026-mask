@@ -1,6 +1,7 @@
 import { _decorator, assetManager, AssetManager, resources, Color, Component, director, loadWasmModuleBox2D, log, Node, Font, TTFFont } from 'cc';
 import * as fgui from "fairygui-cc";
 import EventManager, { GameEvents } from './EventManager';
+import AudioManager from './AudioManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('Main')
@@ -22,6 +23,12 @@ export class Main extends Component {
         // 创建 FGUI 根节点并通知 GameManager 去加载 UI
         fgui.GRoot.create();
         await this.loadFont();
+        // 播放背景音乐（循环）
+        try { 
+            AudioManager.instance.playMusic('audio/music/bg_01', true, 0.7); 
+        } catch (e) {
+            
+        }
         EventManager.instance.emit(GameEvents.FGUI_READY);
     }
 
