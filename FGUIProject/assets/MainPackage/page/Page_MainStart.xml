@@ -5,16 +5,27 @@
     <component id="n6_vg7n" name="button_start" src="vg7ns" fileName="components/Button01.xml" xy="484,566">
       <Button title="开始游戏"/>
     </component>
-    <component id="n8_vg7n" name="button_quit" src="vg7nu" fileName="components/Button03.xml" xy="484,733">
-      <Button title="退出游戏"/>
+    <component id="n8_vg7n" name="button_about" src="vg7nu" fileName="components/Button03.xml" xy="1038,3" size="237,88">
+      <Button title="联系作者"/>
     </component>
     <image id="n10_vg7n" name="n10" src="vg7nx" fileName="images/ui/MaskLight.png" xy="337,121" size="270,77"/>
-    <image id="n11_vg7n" name="n11" src="vg7ny" fileName="images/ui/黑雾微光.png" xy="639,112"/>
+    <image id="n11_vg7n" name="n11" src="vg7ny" fileName="images/ui/黑雾微光.png" xy="639,112" size="262,86"/>
     <text id="n14_vg7n" name="text_notice_01" xy="488,509" size="303,54" font="ui://z5tfkaorvg7n8" fontSize="40" color="#ffffff" align="center" text="按 Enter 键 开始"/>
+    <text id="n15_vg7n" name="text_stage" xy="722,657" size="553,59" font="ui://z5tfkaorvg7n8" fontSize="35" color="#ffffff" align="right" vAlign="middle" autoSize="none" text="GGJ 2026 参赛作品"/>
   </displayList>
   <transition name="t0" options="4" autoPlay="true" autoPlayRepeat="-1">
     <item time="0" type="Alpha" target="n14_vg7n" tween="true" startValue="1" endValue="0" duration="12"/>
     <item time="12" type="Alpha" target="n14_vg7n" tween="true" startValue="0" endValue="1" duration="12"/>
     <item time="24" type="Alpha" target="n14_vg7n" value="1"/>
+  </transition>
+  <transition name="t1" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Size" target="n10_vg7n" tween="true" startValue="270,77" endValue="335,105" duration="30"/>
+    <item time="0" type="Size" target="n11_vg7n" tween="true" startValue="262,86" endValue="376,122" duration="30"/>
+    <item time="0" type="XY" target="n10_vg7n" tween="true" startValue="337,121" endValue="297,122" duration="30"/>
+    <item time="0" type="XY" target="n11_vg7n" tween="true" startValue="639,112" endValue="623,103" duration="30"/>
+    <item time="30" type="Size" target="n10_vg7n" tween="true" startValue="335,105" endValue="270,77" duration="36"/>
+    <item time="30" type="Size" target="n11_vg7n" tween="true" startValue="376,122" endValue="262,86" duration="36"/>
+    <item time="30" type="XY" target="n10_vg7n" tween="true" startValue="297,122" endValue="337,121" duration="36"/>
+    <item time="30" type="XY" target="n11_vg7n" tween="true" startValue="623,103" endValue="639,112" duration="36"/>
   </transition>
 </component>

@@ -3,13 +3,14 @@ import { _decorator, Color, Component, log, Node, input, Input, EventKeyboard, K
 import * as fgui from "fairygui-cc";
 import EventManager, { GameEvents } from '../core/EventManager';
 import AudioManager from '../core/AudioManager';
+import { AboutWindow } from './AboutWindow';
 const { ccclass, property } = _decorator;
 
 @ccclass('GameStartPage')
 export class GameStartPage extends Component {
     _view: fgui.GComponent = null!;
     _button_start: fgui.GButton = null!;
-    _button_quit: fgui.GButton = null!;
+    _button_about: fgui.GButton = null!;
 
     @property({ type: Enum(KeyCode), tooltip: '按下该键等同点击“开始”（默认 Enter）' })
     nextKey: KeyCode = KeyCode.ENTER;
@@ -27,19 +28,22 @@ export class GameStartPage extends Component {
         fgui.GRoot.inst.addChild(this._view);
         this._button_start = this._view.getChild("button_start") as fgui.GButton;
         this._button_start.onClick(this.onClickStart, this);
-        this._button_quit = this._view.getChild("button_quit") as fgui.GButton;
-        this._button_quit.onClick(this.onClickQuit, this);
-        this._button_quit.visible = false; // 禁用退出按钮
+        this._button_about = this._view.getChild("button_about") as fgui.GButton;
+        this._button_about.onClick(this.onClickAbout, this);
+        
     }
     onClickStart() {
         log(`点击开始游戏按钮，发送 ENTER_STAGE 事件`);
         AudioManager.instance.playEffect('audio/sound/btnClick', 0.9);
         EventManager.instance.emit(GameEvents.ENTER_STAGE);
     }
-
-    onClickQuit() {
-        log(`点击退出游戏按钮，发送 QUIT_GAME 事件`);
-        EventManager.instance.emit(GameEvents.QUIT_GAME);
+    _aboutWindow: AboutWindow | null = null;
+    onClickAbout() {
+        //
+        if (!this._aboutWindow) {
+            this._aboutWindow = new AboutWindow();
+        }
+        this._aboutWindow.show();
     }
 
     onEnable() {

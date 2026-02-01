@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1280,720">
+  <controller name="state" pages="2,succ,0,fail" selected="1"/>
   <displayList>
-    <graph id="n0_vg7n" name="n0" xy="0,0" size="1280,720" type="rect" lineColor="#ffffff00" fillColor="#80000000"/>
-    <text id="n1_vg7n" name="text_state" xy="393,121" size="493,148" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="游戏结束"/>
+    <graph id="n0_vg7n" name="n0" xy="-1,0" size="1280,720" type="rect" lineColor="#ffffff00" fillColor="#80000000"/>
+    <text id="n1_vg7n" name="text_state" xy="393,121" size="493,148" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ff6666" align="center" vAlign="middle" autoSize="none" text="游戏结束">
+      <gearColor controller="state" pages="2,0" values="#66ff00,#000000|#ff6666,#000000"/>
+    </text>
     <text id="n4_vg7n" name="text_notice_time" xy="279,274" size="722,69" font="ui://z5tfkaorvg7n8" fontSize="40" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="你坚持了：xxx秒，请再接再厉"/>
     <component id="n5_vg7n" name="button_restart" src="vg7nt" fileName="components/Button02.xml" xy="491,566" size="297,90">
       <Button title="重新开始"/>
     </component>
     <text id="n7_vg7n" name="text_notice_01" xy="495,509" size="303,54" font="ui://z5tfkaorvg7n8" fontSize="40" color="#ffffff" align="center" text="按 Enter 键 开始"/>
+    <image id="n8_vg7n" name="n8" src="vg7n14" fileName="images/ui/成功.png" xy="457,129" size="123,78" rotation="-30">
+      <gearDisplay controller="state" pages="2"/>
+    </image>
+    <image id="n9_vg7n" name="n9" src="vg7n13" fileName="images/ui/失败.png" xy="797,71" rotation="40">
+      <gearDisplay controller="state" pages="0"/>
+    </image>
   </displayList>
   <transition name="t3" autoPlay="true" autoPlayRepeat="-1">
     <item time="0" type="Alpha" target="n7_vg7n" tween="true" startValue="1" endValue="0" duration="12"/>

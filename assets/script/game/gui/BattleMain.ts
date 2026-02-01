@@ -7,7 +7,8 @@ import { GameManager } from '../GameManager';
 export class BattleMain extends Component {
     private _view: fgui.GComponent = null!;
     private _txtTime: fgui.GTextField = null!;
-    private _list_hearts: fgui.GList = null!;
+    private _text_info: fgui.GTextField = null!;
+    private _list_hearts: fgui.GList = null!;    
     
     setHeartCount(count: number) {
         if (this._list_hearts) {
@@ -35,6 +36,8 @@ export class BattleMain extends Component {
         this._txtTime = hub_com.getChild("text_time") as fgui.GTextField;
         this._txtTime.text = "00:00";
         this._list_hearts = this._view.getChild("list_heart") as fgui.GList;
+        this._text_info = this._view.getChild("text_stage_info") as fgui.GTextField;
+        this._text_info.text = `第 ${GameManager.instance.StageIndex} 关`;
     }
 
     onDestroy() {

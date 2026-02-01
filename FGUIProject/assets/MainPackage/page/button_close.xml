@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="110,100" pivot="0.5,0.5" extention="Button">
+  <displayList>
+    <image id="n8_vg7n" name="button_close" src="vg7n17" fileName="images/ui/关闭.png" xy="0,0"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.9"/>
+</component>

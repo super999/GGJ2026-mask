@@ -4,7 +4,7 @@
     <component id="n0_am65" name="hud" src="am653" fileName="components/hud_01.xml" xy="1005,10">
       <relation target="" sidePair="right-right,top-top"/>
     </component>
-    <text id="n2_vg7n" name="text_tip01" xy="3,10" size="568,119" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="使用↑↓←→控制移动"/>
+    <text id="n2_vg7n" name="text_tip01" xy="3,10" size="568,119" font="ui://z5tfkaorvg7n8" fontSize="40" color="#ffffff" vAlign="middle" autoSize="none" text="使用↑↓←→控制移动"/>
     <list id="n7_vg7n" name="list_heart" xy="766,26" size="224,75" layout="flow_hz" overflow="scroll" defaultItem="ui://z5tfkaorvg7n11" autoClearItems="true">
       <item/>
       <item/>
@@ -12,5 +12,6 @@
       <item/>
       <item/>
     </list>
+    <text id="n9_vg7n" name="text_stage_info" xy="523,7" size="233,123" font="ui://z5tfkaorvg7n8" fontSize="45" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="第 x 关"/>
   </displayList>
 </component>

@@ -15,7 +15,7 @@
     <image id="vg7nm" name="爱心1.png" path="/images/ui/"/>
     <image id="vg7nn" name="爱心2.png" path="/images/ui/"/>
     <image id="vg7no" name="爱心3.png" path="/images/ui/"/>
-    <image id="vg7np" name="红色按钮.png" path="/images/ui/" scale="9grid" scale9grid="53,28,139,56"/>
+    <image id="vg7np" name="红色按钮.png" path="/images/ui/" scale="9grid" scale9grid="42,28,170,56"/>
     <image id="vg7nq" name="绿色按钮.png" path="/images/ui/" scale="9grid" scale9grid="51,27,68,54"/>
     <image id="vg7nr" name="蓝色按钮.png" path="/images/ui/"/>
     <component id="vg7ns" name="Button01.xml" path="/components/"/>
@@ -28,7 +28,14 @@
     <image id="vg7nz" name="爱心.png" path="/images/ui/"/>
     <image id="vg7n10" name="爱心-s.png" path="/images/ui/"/>
     <component id="vg7n11" name="hub_heart_item.xml" path="/components/"/>
-    <component id="vg7n12" name="Page_Settings.xml" path="/page/" exported="true"/>
+    <component id="vg7n12" name="Page_About.xml" path="/page/" exported="true"/>
+    <image id="vg7n13" name="失败.png" path="/images/ui/"/>
+    <image id="vg7n14" name="成功.png" path="/images/ui/"/>
+    <component id="vg7n15" name="Page_About2.xml" path="/page/" exported="true"/>
+    <image id="vg7n16" name="panel-01.png" path="/images/ui/"/>
+    <image id="vg7n17" name="关闭.png" path="/images/ui/"/>
+    <image id="vg7n18" name="b站头像.png" path="/images/ui/"/>
+    <component id="vg7n19" name="button_close.xml" path="/page/"/>
   </resources>
   <publish name=""/>
 </packageDescription>

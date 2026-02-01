@@ -24,3 +24,7 @@ node_modules/
 .idea/
 
 **/*.meta
+
+build/
+
+打包/

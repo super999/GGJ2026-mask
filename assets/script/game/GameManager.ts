@@ -10,6 +10,7 @@ import { SceneManager } from './SceneManager';
 import { game } from 'cc';
 import { GameStagePage } from './gui/GameStagePage';
 import { FogSpotlight } from './FogOverlay';
+import { BgMap } from './BgMap';
 
 const { ccclass, property } = _decorator;
 
@@ -34,6 +35,8 @@ export class GameManager extends Component {
 
     @property
     winTime = 30;
+
+    bgMap: BgMap = null!;
 
     private state: GameStateCode = GameStateCode.Ready;
     public  elapsed = 0;
@@ -152,7 +155,8 @@ export class GameManager extends Component {
         this.spawner.enabled = true;
         this.playerMove.enabled = true;
         this.setTextTime?.(0);
-    } 
+        this.bgMap?.pickAndSetRandom();
+    }
 
     update(dt: number) {
         if (this.state !== GameStateCode.Playing) return;
@@ -226,11 +230,8 @@ export class GameManager extends Component {
     }
 
     private _pendingGameEnd = false;
-
     private _uiLoaded = false;
-
     private _onFGUIReady: ((...args: any[]) => void) | null = null;
-
     private _fightLayerInstance: Node | null = null;
     private _WorldRoot: Node | null = null;
     private _onStart: ((...args: any[]) => void) | null = null;
@@ -302,6 +303,10 @@ export class GameManager extends Component {
         // 查找 PlayerMove 组件
         const playerMoveComp: PlayerMove | null = (this.player ? this.player.getComponent(PlayerMove) : null);
         if (playerMoveComp) this.playerMove = playerMoveComp;
+
+        // 查找 BgMap 组件
+        const bgMapComp: BgMap | null = this._WorldRoot.getComponentInChildren(BgMap);
+        if (bgMapComp) this.bgMap = bgMapComp;
 
         // 切换 UI 到 BattleMain，并启动游戏
         UIManager.instance.replace(GameStagePage, BattleMain);

@@ -11,6 +11,8 @@ export class GameEndPage extends Component {
     private _button_restart: fgui.GButton = null!;
     private _text_state: fgui.GTextField = null!;
     private _text_notice_time: fgui.GTextField = null!;
+    // 控制器 state
+    private _stateCtrl: fgui.Controller = null!;
 
     @property({ type: Enum(KeyCode), tooltip: '按下该键等同点击“下一关/重新开始”（默认 Enter）' })
     nextKey: KeyCode = KeyCode.ENTER;
@@ -28,7 +30,7 @@ export class GameEndPage extends Component {
         this._button_restart.onClick(this.onClickRestart, this);
         this._text_state = this._view.getChild("text_state") as fgui.GTextField;
         this._text_notice_time = this._view.getChild("text_notice_time") as fgui.GTextField;
-
+        this._stateCtrl = this._view.getController("state");
     }
 
     start() {
@@ -39,12 +41,14 @@ export class GameEndPage extends Component {
             this._text_notice_time.text = `坚持了：${elapsed.toFixed(2)} 秒。`;
             AudioManager.instance.playEffect('audio/sound/mission_succ', 1);
             this._button_restart.title = "下一关";
+            this._stateCtrl.setSelectedIndex(0);
         }
         else if (GameManager.instance.GameState == GameStateCode.GameOver) {
             this._text_state.text = "游戏失败！";
             this._text_notice_time.text = `你坚持了：${elapsed.toFixed(2)} 秒，请再接再厉！`;
             AudioManager.instance.playEffect('audio/sound/mission_fail', 1);
             this._button_restart.title = "重新开始";
+            this._stateCtrl.setSelectedIndex(1);
         }
     }
 

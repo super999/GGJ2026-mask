@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="675,521">
+  <displayList>
+    <image id="n7_vg7n" name="n7" src="vg7n16" fileName="images/ui/panel-01.png" xy="19,18"/>
+    <component id="n8_vg7n" name="button_close" src="vg7n19" fileName="page/button_close.xml" xy="557,3"/>
+    <text id="n10_vg7n" name="text_stage" xy="198,19" size="284,75" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="2" shadowColor="#000000" shadowOffset="1,1" text="作者"/>
+    <text id="n11_vg7n" name="text_stage" xy="54,127" size="581,86" font="ui://z5tfkaorvg7n8" fontSize="50" color="#ffffff" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="2" text="B站 ID： 独游AI匠"/>
+    <text id="n12_vg7n" name="text_stage" xy="53,230" size="581,243" font="ui://z5tfkaorvg7n8" fontSize="38" color="#ffffff" vAlign="middle" leading="5" autoSize="none" strokeColor="#000000" strokeSize="2" text="QQ:    281656070&#xA;联系邮箱:    sup9@qq.com&#xA;B站空间: https://space.bilibili.com/24963710"/>
+    <image id="n13_vg7n" name="n13" src="vg7n18" fileName="images/ui/b站头像.png" xy="541,118" size="88,88"/>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1"/>
+</component>
