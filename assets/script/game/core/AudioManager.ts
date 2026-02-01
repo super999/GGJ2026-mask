@@ -10,6 +10,7 @@ export class AudioManager {
     private _musicNode: Node | null = null;
     private _musicSource: AudioSource | null = null;
     private _musicClip: AudioClip | null = null;
+    private _musicPath: string | null = null;
 
     private ensureMusicSource() {
         if (this._musicSource && this._musicNode) return;
@@ -41,6 +42,7 @@ export class AudioManager {
                 });
             });
             this._musicClip = clip;
+            this._musicPath = path;
             this.ensureMusicSource();
             if (!this._musicSource) return -1;
             this._musicSource.clip = clip;

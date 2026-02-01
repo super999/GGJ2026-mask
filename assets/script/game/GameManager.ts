@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, director, KeyCode, input, Input, EventKeyboard, Prefab, instantiate, Camera, error } from 'cc';
+import { _decorator, Component, Node, director, KeyCode, input, Input, EventKeyboard, Prefab, instantiate, Camera, error, Vec3, view } from 'cc';
 import { BulletSpawner } from './BulletSpawner';
 import { PlayerMove } from './PlayerMove';
 import { BattleMain } from './gui/BattleMain';
@@ -118,6 +118,24 @@ export class GameManager extends Component {
         }
     }
 
+    private resetPlayerToCenter() {
+        if (!this.player) return;
+        try {
+            const cam = SceneManager.instance?.getGameCamera?.();
+            if (cam) {
+                const vs = view.getVisibleSizeInPixel();
+                const wp = cam.screenToWorld(new Vec3(vs.width / 2, vs.height / 2, 0));
+                this.player.setWorldPosition(wp);
+                return;
+            }
+        } catch (e) {
+            // fall back to local origin
+        }
+
+        const pz = this.player.position.z;
+        this.player.setPosition(0, 0, pz);
+    }
+
     startGame() {
         this.state = GameStateCode.Playing;
         this.elapsed = 0;
@@ -128,10 +146,13 @@ export class GameManager extends Component {
         // 下一关/重开：重置雾的难度计时
         this.resetFogSpotlight();
 
+        // 下一关/重开：玩家回到屏幕中心
+        this.resetPlayerToCenter();
+
         this.spawner.enabled = true;
         this.playerMove.enabled = true;
         this.setTextTime?.(0);
-    }
+    } 
 
     update(dt: number) {
         if (this.state !== GameStateCode.Playing) return;

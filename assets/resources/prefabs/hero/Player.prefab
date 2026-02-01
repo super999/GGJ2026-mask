@@ -388,6 +388,9 @@
       "__id__": 17
     },
     "speed": 300,
+    "startSpeed": 120,
+    "maxSpeed": 500,
+    "acceleration": 1600,
     "moveAnim": "walk",
     "idleAnim": "idle",
     "_id": ""
@@ -434,10 +437,10 @@
     "_restitution": 0,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 3.1,
+      "y": -5.5
     },
-    "_radius": 42.2,
+    "_radius": 28.8,
     "_id": ""
   },
   {
@@ -487,7 +490,6 @@
       "__id__": 0
     },
     "fileId": "8bkivzFZFIz6JX98HiZYvP",
-    "instance": null,
-    "targetOverrides": null
+    "instance": null
   }
 ]

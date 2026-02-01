@@ -125,7 +125,7 @@ export class BulletSpawner extends Component {
     let prefabPath = this.bulletPrefabPath;
     if (this._stages && this._stages.length > 0) {
       //const ridx = math.randomRangeInt(0, this._stages.length);
-      const fidx = GameManager.instance.StageIndex % this._stages.length;
+      const fidx = (GameManager.instance.StageIndex-1) % this._stages.length;
       const rchosen = this._stages[fidx];
       if (rchosen && rchosen.bullet) prefabPath = rchosen.bullet;
       // warn(`BulletSpawner: random index=${fidx} chosen prefab=${prefabPath}`);

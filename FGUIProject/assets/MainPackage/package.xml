@@ -28,6 +28,7 @@
     <image id="vg7nz" name="爱心.png" path="/images/ui/"/>
     <image id="vg7n10" name="爱心-s.png" path="/images/ui/"/>
     <component id="vg7n11" name="hub_heart_item.xml" path="/components/"/>
+    <component id="vg7n12" name="Page_Settings.xml" path="/page/" exported="true"/>
   </resources>
   <publish name=""/>
 </packageDescription>

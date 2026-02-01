@@ -1,4 +1,4 @@
-import { _decorator, Component, log, Node } from 'cc';
+import { _decorator, Component, log, Node, input, Input, EventKeyboard, KeyCode, Enum } from 'cc';
 import * as fgui from "fairygui-cc";
 import EventManager, { GameEvents } from '../core/EventManager';
 import { GameManager, GameStateCode } from '../GameManager';
@@ -11,6 +11,11 @@ export class GameEndPage extends Component {
     private _button_restart: fgui.GButton = null!;
     private _text_state: fgui.GTextField = null!;
     private _text_notice_time: fgui.GTextField = null!;
+
+    @property({ type: Enum(KeyCode), tooltip: '按下该键等同点击“下一关/重新开始”（默认 Enter）' })
+    nextKey: KeyCode = KeyCode.ENTER;
+
+    private _onKeyDown: ((e: EventKeyboard) => void) | null = null;
     onLoad() {
         this.onUILoaded();
     }
@@ -47,6 +52,7 @@ export class GameEndPage extends Component {
     }
 
     onClickRestart() {
+        AudioManager.instance.playEffect('audio/sound/btnClick', 0.9);
         // 发出重启事件
         if (GameManager.instance.GameState == GameStateCode.Win) {
             log("点击下一关按钮，发送 NEXT_STAGE 事件");
@@ -56,6 +62,20 @@ export class GameEndPage extends Component {
             log("点击重新开始按钮，发送 RESTART 事件");
             EventManager.instance.emit(GameEvents.RESTART);
         }        
+    }
+
+    onEnable() {
+        this._onKeyDown = (e: EventKeyboard) => {
+            if (e.keyCode === this.nextKey) this.onClickRestart();
+        };
+        input.on(Input.EventType.KEY_DOWN, this._onKeyDown, this);
+    }
+
+    onDisable() {
+        if (this._onKeyDown) {
+            input.off(Input.EventType.KEY_DOWN, this._onKeyDown, this);
+            this._onKeyDown = null;
+        }
     }
 
     protected onDestroy(): void {

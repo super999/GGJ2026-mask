@@ -6,6 +6,15 @@ export class PlayerMove extends Component {
   @property
   speed = 300;
 
+  @property({ tooltip: '起步速度（按下方向键的初始速度）' })
+  startSpeed = 120;
+
+  @property({ tooltip: '最大速度' })
+  maxSpeed = 500;
+
+  @property({ tooltip: '加速度（也用于减速）' })
+  acceleration = 1600;
+
   @property
   moveAnim = 'walk';
 
@@ -13,11 +22,13 @@ export class PlayerMove extends Component {
   idleAnim = 'idle';
 
   private dir = new Vec3();
+  private _currentSpeed = 0;
   private _spine: sp.Skeleton | null = null;
   private _currentAnim: string | null = null;
 
   private resetInputState() {
     this.dir.set(0, 0, 0);
+    this._currentSpeed = 0;
   }
 
   onLoad() {
@@ -55,8 +66,24 @@ export class PlayerMove extends Component {
 
   update(dt: number) {
     const p = this.node.position;
-    const moving = this.dir.x !== 0 || this.dir.y !== 0;
-    this.node.setPosition(p.x + this.dir.x * this.speed * dt, p.y + this.dir.y * this.speed * dt, p.z);
+
+    const inputDir = new Vec3(this.dir.x, this.dir.y, 0);
+    const hasInput = inputDir.x !== 0 || inputDir.y !== 0;
+    if (hasInput) inputDir.normalize(); // 防止斜向更快
+
+    if (hasInput) {
+      if (this._currentSpeed <= 0) this._currentSpeed = this.startSpeed;
+      this._currentSpeed = Math.min(this.maxSpeed, this._currentSpeed + this.acceleration * dt);
+    } else {
+      this._currentSpeed = Math.max(0, this._currentSpeed - this.acceleration * dt);
+    }
+
+    const moving = hasInput && this._currentSpeed > 0;
+    if (moving) {
+      const dx = inputDir.x * this._currentSpeed * dt;
+      const dy = inputDir.y * this._currentSpeed * dt;
+      this.node.setPosition(p.x + dx, p.y + dy, p.z);
+    }
 
     if (this._spine) {
       const want = moving ? this.moveAnim : this.idleAnim;

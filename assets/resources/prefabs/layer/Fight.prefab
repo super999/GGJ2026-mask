@@ -845,15 +845,15 @@
     "SpriteNode": {
       "__id__": 33
     },
-    "radius": 0.25,
-    "soft": 0.03,
+    "radius": 0.2,
+    "soft": 0.3,
     "fogAlpha": 0.97,
     "enableBreath": true,
     "breathAmp": 0.04,
     "breathHz": 0.5,
     "enableDifficulty": true,
     "difficultyDuration": 30,
-    "minRadius": 0.12,
+    "minRadius": 0.08,
     "maxFogAlpha": 0.99,
     "_id": ""
   },

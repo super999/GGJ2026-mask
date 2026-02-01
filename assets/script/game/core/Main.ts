@@ -24,11 +24,7 @@ export class Main extends Component {
         fgui.GRoot.create();
         await this.loadFont();
         // 播放背景音乐（循环）
-        try { 
-            AudioManager.instance.playMusic('audio/music/bg_01', true, 0.7); 
-        } catch (e) {
-            
-        }
+        
         EventManager.instance.emit(GameEvents.FGUI_READY);
     }
 
