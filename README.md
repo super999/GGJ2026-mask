@@ -83,10 +83,15 @@ npm install
 
 **截图 / 演示**
 
-- 屏幕截图：
+- 游戏截图截图：
+
+![游戏截图1](https://raw.githubusercontent.com/super999/GGJ2026-mask-art-resource/master/%E6%B8%B8%E6%88%8F%E6%88%AA%E5%9B%BE/%E6%88%AA%E5%9B%BE1.png)
+
+![游戏截图2](https://raw.githubusercontent.com/super999/GGJ2026-mask-art-resource/master/%E6%B8%B8%E6%88%8F%E6%88%AA%E5%9B%BE/%E6%88%AA%E5%9B%BE2.png)
 
 - 演示视频：
 
+![视频封面](https://raw.githubusercontent.com/super999/GGJ2026-mask-art-resource/master/%E6%B8%B8%E6%88%8F%E6%88%AA%E5%9B%BE/%E5%90%AF%E5%8A%A8%E9%A1%B5%E9%9D%A2.png)
 [【GGJ2026】黑雾微光 - 作品介绍](https://www.bilibili.com/video/BV1iU6bBCEh4)
 
 ---
