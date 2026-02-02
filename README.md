@@ -118,7 +118,10 @@ npm install
 
 **许可证**
 
-- 例如：MIT / Apache-2.0 / 自定义（请在此处填写并添加 `LICENSE` 文件）
+- 代码：MIT License
+- 资源（图片 / 音频 / 其他创意素材）：Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+详见仓库根目录的 `LICENSE` 文件。
 
 ---
 
